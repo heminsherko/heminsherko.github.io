@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>هێمن شێرکۆ | ئەندازیاری سیستەم</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="./assets/images/logo.svg" type="image/svg+xml" />
+
+  <!-- Primary Meta Tags -->
+  <meta name="description" content="پۆرتفۆلیۆی کەسیی هێمن شێرکۆ - ئەندازیاری سیستەم. Personal Portfolio of Hemin Sherko, Systems Architect." />
+  <meta name="keywords" content="Hemin Sherko, Systems Architect, Portfolio, هێمن شێرکۆ, ئەندازیاری سیستەم, Kurdistan, IT" />
+  <meta name="author" content="Hemin Sherko" />
+
+  <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="هێمن شێرکۆ | Hemin Sherko - Systems Architect" />
+  <meta property="og:description" content="پۆرتفۆلیۆی کەسیی و زانیاری دەربارەی کار و خزمەتگوزارییەکانم." />
+  <meta property="og:image" content="./assets/images/my-photo1.png" />
+
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="هێمن شێرکۆ | Hemin Sherko" />
+  <meta name="twitter:description" content="Personal Portfolio of Hemin Sherko, Systems Architect." />
+  <meta name="twitter:image" content="./assets/images/my-photo1.png" />
+  
+  <!-- Resource Preconnection for Performance Optimization -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://unpkg.com" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+
+  <!-- Google Fonts: Cairo (Arabic Formal Font) -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- AOS (Animate On Scroll) CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <!-- هێڵی پێشکەوتنی سکڕۆڵ لە سەرەوەی پەڕە (Scroll Progress Bar) -->
+  <div id="scroll-progress"></div>
+
+  <!-- هێدەر و ڕێدۆزی سەرەکی (Header / Navbar) -->
+  <header class="header" id="header">
+    <div class="container nav-container">
+      
+      <!-- لۆگۆ لە بەشی ڕاست (RTL) - Inline SVG نوێ بە شێوازی Adaptive بۆ هەردوو دۆخی ڕووناک و تاریک -->
+      <a href="#hero" class="logo notranslate" aria-label="پەڕەی سەرەکی - هێمن شێرکۆ | Home">
+        <svg class="site-logo-svg" viewBox="0 0 501 419" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="logoBodyGradient" x1="58" y1="212" x2="438" y2="212" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#caa5ff" />
+              <stop offset="35%" stop-color="#9fa3ff" />
+              <stop offset="70%" stop-color="#4f8fff" />
+              <stop offset="100%" stop-color="#147eff" />
+            </linearGradient>
+          </defs>
+          <!-- Center Gradient Body Shape -->
+          <path d="M 58 90 L 87 106 L 88 108 L 98 112 L 99 114 L 147 137 L 198 155 L 235 162 L 261 162 L 276 160 L 326 146 L 369 128 L 406 109 L 407 107 L 438 90 L 418 128 L 408 152 L 400 176 L 395 203 L 396 228 L 403 257 L 417 293 L 438 333 L 400 310 L 390 306 L 389 304 L 325 275 L 281 262 L 261 259 L 236 259 L 199 266 L 157 281 L 108 305 L 107 307 L 71 327 L 61 335 L 59 334 L 78 299 L 94 258 L 101 228 L 102 204 L 98 180 L 85 142 L 72 114 L 58 91 Z" fill="url(#logoBodyGradient)" />
+          <!-- Wing Path 1 (Dynamic Wings) -->
+          <path d="M 93 0 L 110 1 L 131 10 L 141 17 L 162 40 L 177 67 L 186 92 L 197 147 L 197 154 L 195 154 L 147 137 L 99 114 L 98 112 L 88 108 L 57 89 L 51 78 L 47 64 L 47 48 L 52 31 L 62 16 L 73 7 L 84 2 L 93 1 Z" fill="var(--logo-dynamic-color)" class="logo-adaptive-shape" />
+          <!-- Wing Path 2 (Dynamic Wings) -->
+          <path d="M 390 0 L 404 0 L 418 4 L 429 11 L 441 25 L 448 43 L 449 62 L 447 72 L 440 87 L 438 90 L 420 101 L 369 128 L 326 146 L 298 154 L 301 126 L 309 92 L 319 65 L 329 46 L 339 32 L 358 14 L 371 6 L 385 1 L 390 1 Z" fill="var(--logo-dynamic-color)" class="logo-adaptive-shape" />
+          <!-- Wing Path 3 (Dynamic Wings) -->
+          <path d="M 196 267 L 197 273 L 191 309 L 179 348 L 161 381 L 139 404 L 122 414 L 110 418 L 93 419 L 82 416 L 71 410 L 61 400 L 53 385 L 50 372 L 51 353 L 59 335 L 94 313 L 137 290 L 172 275 L 196 268 Z" fill="var(--logo-dynamic-color)" class="logo-adaptive-shape" />
+          <!-- Wing Path 4 (Dynamic Wings) -->
+          <path d="M 298 267 L 325 275 L 352 286 L 414 318 L 441 336 L 447 355 L 447 371 L 443 386 L 435 400 L 423 411 L 407 418 L 390 419 L 378 416 L 365 410 L 351 400 L 341 390 L 328 372 L 319 355 L 304 309 L 298 268 Z" fill="var(--logo-dynamic-color)" class="logo-adaptive-shape" />
+        </svg>
+      </a>
+
+      <!-- هامبەرگەر مێنیو بۆ ئامێرە مۆبایلەکان (Mobile Hamburger Menu) -->
+      <div class="hamburger" id="hamburger" aria-label="کردنەوەی مێنیوی ڕێدۆزی | Toggle navigation menu" role="button" tabindex="0" aria-expanded="false" aria-controls="nav-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <!-- بەستەرەکان لە ناوەڕاست -->
+      <nav class="nav-menu nav-links" id="nav-menu" aria-label="مێنیوی سەرەکی | Main Navigation">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="#hero" class="nav-link active">سەرەتا</a></li>
+          <li class="nav-item"><a href="#about" class="nav-link">دەربارەی من</a></li>
+          <li class="nav-item"><a href="#services" class="nav-link">خزمەتگوزارییەکان</a></li>
+          <li class="nav-item"><a href="#portfolio" class="nav-link">کارەکانم</a></li>
+          <li class="nav-item"><a href="#contact" class="nav-link">پەیوەندی</a></li>
+        </ul>
+      </nav>
+
+      <!-- کرداری سەرەکی لە چەپ (گۆڕینی زمان، دۆخی تاریک/ڕووناک، دوگمەی پەیوەندی) -->
+      <div class="nav-actions">
+        <!-- درۆپداونی گۆڕینی زمان (Language Switcher) -->
+        <div class="lang-switcher notranslate" id="lang-switcher">
+          <button class="lang-toggle-btn" id="lang-toggle-btn" type="button" aria-label="هەڵبژاردنی زمان | Select Language" aria-expanded="false" aria-haspopup="true" aria-controls="lang-dropdown-menu">
+            <svg class="icon icon-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span class="current-lang-text" id="current-lang-text">کوردی</span>
+            <svg class="icon chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="lang-dropdown-menu" id="lang-dropdown-menu" role="menu" aria-label="زمانە بەردەستەکان | Available Languages">
+            <button type="button" class="lang-option active" data-lang="ku" data-dir="rtl" role="menuitem">
+              <span class="lang-code-pill">KU</span>
+              <span class="lang-label">کوردی</span>
+            </button>
+            <button type="button" class="lang-option" data-lang="en" data-dir="ltr" role="menuitem">
+              <span class="lang-code-pill">EN</span>
+              <span class="lang-label">English</span>
+            </button>
+            <button type="button" class="lang-option" data-lang="ar" data-dir="rtl" role="menuitem">
+              <span class="lang-code-pill">AR</span>
+              <span class="lang-label">العربية</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- دوگمەی گۆڕینی دۆخی تاریک / ڕووناک -->
+        <button class="theme-toggle-btn" id="theme-toggle" aria-label="گۆڕینی دۆخی تاریک و ڕووناک | Toggle Dark and Light Mode" title="گۆڕینی دۆخی تاریک / ڕووناک">
+          <svg class="icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <!-- دوگمەی سەرەکی CTA (بەستەری ڕاستەوخۆی واتسئەپ) -->
+        <a href="https://wa.me/9647732640262" target="_blank" rel="noopener noreferrer" class="btn btn-primary nav-cta" aria-label="پەیوەندیکردن لە ڕێگەی واتسئەپ | Chat on WhatsApp">با قسە بکەین</a>
+      </div>
+
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HERO SECTION ================= -->
+    <section class="hero-section" id="hero">
+      <!-- تۆڕی پەیوەندی پارتیکڵ (Interactive Particle Network Background) -->
+      <div id="particles-js" aria-hidden="true"></div>
+
+      <div class="container hero-container">
+        
+        <!-- لای ڕاست: دەقەکان -->
+        <div class="hero-content" data-aos="fade-left">
+          <div class="hero-greeting">
+            سڵاو، من ناوم <span class="hero-greeting-name notranslate">هێمن شێرکۆ</span>یە
+          </div>
+
+          <!-- تایتڵی زەبەلاح بە ڕەنگی شینی سەرەکی -->
+          <h1 class="hero-title-massive">
+            ئەندازیاری سیستەم
+          </h1>
+
+          <!-- دەقی داینامیکی تایپڕایتەر (Sequential Heading Hierarchy) -->
+          <h2 class="typewriter-container notranslate">من شارەزام لە: <span class="typewriter-text"></span><span class="typewriter-cursor" aria-hidden="true">|</span></h2>
+
+          <p class="hero-description">
+            پەرەپێدەر و تەلارسازی سیستەمی دیجیتاڵی پێشکەوتوو. 
+            یارمەتی کۆمپانیا و براندە بازرگانییەکان دەدەم لە نەخشەسازی ژێرخانی کلاود، پلاتفۆرمی خێرا و پاراستنی سەقامگیری داتابەیس.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#contact" class="btn btn-primary" aria-label="پەیوەندیکردن لەگەڵ هێمن شێرکۆ">
+              پەیوەندیکردن
+              <svg class="icon flip-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <a href="#portfolio" class="btn btn-outline" aria-label="بینینی نموونەی کارەکانم">کارەکانم</a>
+          </div>
+        </div>
+
+        <!-- لای چەپ: وێنەی کەسی لەگەڵ کارتی هەڵواسراو و نەخشی خاڵبەندی -->
+        <div class="hero-visual" data-aos="fade-right">
+          <div class="hero-image-wrapper">
+            <!-- شێوەی پاشبنەمای وێنە -->
+            <div class="hero-photo-backdrop" aria-hidden="true"></div>
+            
+            <!-- نەخشی خاڵبەندی دەوربەری وێنە -->
+            <div class="dot-pattern" aria-hidden="true"></div>
+
+            <!-- وێنەی کەسی بە ڕوونی my-photo1.png (LCP - High Priority) -->
+            <img src="./assets/images/my-photo1.png" alt="Hemin Sherko - Systems Architect portrait" class="hero-image" fetchpriority="high" />
+
+            <!-- کارتی ڕەزامەندی کڕیاران (20k+ Customer Review) -->
+            <div class="floating-review-badge" aria-label="زیاتر لە ۲۰ هەزار کڕیاری ڕازی">
+              <div class="review-stars" aria-hidden="true">
+                ★★★★★
+              </div>
+              <div class="review-meta">
+                <div class="review-count">20k+</div>
+                <div class="review-label">کڕیاری ڕازی لە خزمەتگوزارییەکان</div>
+              </div>
+            </div>
+
+            <!-- کارتی ئەزموونی ئەندازیاری -->
+            <div class="floating-exp-badge" aria-label="زیاتر لە ٤ ساڵ ئەزموونی پرۆفیشناڵ">
+              <span class="exp-number">+٤</span>
+              <span class="exp-label">ساڵ ئەزموونی پرۆفیشناڵ</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= ABOUT SECTION ================= -->
+    <section class="section about-section" id="about">
+      <div class="container">
+        
+        <div class="about-grid">
+          
+          <!-- لای چەپ: وێنەی کەسی بە چوارچێوەی ئەبستراکت -->
+          <div class="about-image-wrapper">
+            <div class="about-image-frame">
+              <img src="./assets/images/my-photo2.png" alt="Hemin Sherko - Systems Architect professional profile" class="about-image" loading="lazy" />
+            </div>
+            <div class="about-backdrop-shape" aria-hidden="true"></div>
+          </div>
+
+          <!-- لای ڕاست: دەقی ناساندن و ٤ پرۆگرێس باڕی ئەنیمەیشنکراو -->
+          <div class="about-content">
+            <span class="section-tag">دەربارەی من</span>
+            <h2 class="about-lead-title" data-aos="fade-up">
+              ئەزموونێکی دەوڵەمەند لە بونیاتنانی چارەسەری تەکنیکی بەهێز
+            </h2>
+            <p class="about-text" data-aos="fade-up">
+              من ئەندازیاری سیستەمم و خاوەنی ئەزموونی چەندین ساڵەم لە دیزاینکردنی تەلارسازیی پڕۆگرامینگ، بەڕێوەبردنی سێرڤەر و بەستنەوەی مایکڕۆسێرڤسەکان. سەرنجم لەسەر کەمکردنەوەی خەرجییەکان، خێراترکردنی وەڵامدانەوەی سیستەم و گەیاندنی بەرزترین ئاستی سیکیوریتییە.
+            </p>
+
+            <!-- ٤ پرۆگرێس باڕی کارامەییەکان -->
+            <div class="skills-progress-list" data-aos="fade-right">
+              
+              <div class="skill-bar-item">
+                <div class="skill-info">
+                  <span class="skill-title">نەخشەسازی و تەلارسازیی سیستەم</span>
+                  <span class="skill-percentage">95%</span>
+                </div>
+                <div class="progress-track" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" aria-label="نەخشەسازی و تەلارسازیی سیستەم: 95%">
+                  <div class="progress-fill" data-progress="95%"></div>
+                </div>
+              </div>
+
+              <div class="skill-bar-item">
+                <div class="skill-info">
+                  <span class="skill-title">بەڕێوەبردنی ژێرخانی کلاود و سێرڤەر</span>
+                  <span class="skill-percentage">92%</span>
+                </div>
+                <div class="progress-track" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100" aria-label="بەڕێوەبردنی ژێرخانی کلاود و سێرڤەر: 92%">
+                  <div class="progress-fill" data-progress="92%"></div>
+                </div>
+              </div>
+
+              <div class="skill-bar-item">
+                <div class="skill-info">
+                  <span class="skill-title">پەرەپێدانی خزمەتگوزارییەکان و API</span>
+                  <span class="skill-percentage">90%</span>
+                </div>
+                <div class="progress-track" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="پەرەپێدانی خزمەتگوزارییەکان و API: 90%">
+                  <div class="progress-fill" data-progress="90%"></div>
+                </div>
+              </div>
+
+              <div class="skill-bar-item">
+                <div class="skill-info">
+                  <span class="skill-title">پاراستنی داتا و سیکیوریتی تۆڕ</span>
+                  <span class="skill-percentage">88%</span>
+                </div>
+                <div class="progress-track" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="پاراستنی داتا و سیکیوریتی تۆڕ: 88%">
+                  <div class="progress-fill" data-progress="88%"></div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= SERVICES SECTION ================= -->
+    <section class="section services-section" id="services">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="section-tag">خزمەتگوزارییەکان</span>
+          <h2 class="section-title">خزمەتگوزارییەکانم</h2>
+          <p class="section-subtitle">
+            پێشکەشکردنی چارەسەری پێشکەوتوو بۆ بەرزکردنەوەی توانستی پڕۆژەکەت لە هەموو قۆناغەکاندا.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          
+          <!-- خزمەتگوزاری ١ -->
+          <div class="service-card card" data-aos="zoom-in-up" data-aos-delay="100">
+            <div class="service-icon-box" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <h3 class="service-title">دروستکردنی وێبسایت و سیستەم</h3>
+            <p class="service-desc">
+              دیزاین و پرۆگرامکردنی ماڵپەڕ و وێب ئەپڵیکەیشنی تایبەت بە کوالێتی بەرز، خێرایی بێوێنە و ئەزموونی بەکارهێنەری مۆدێرن.
+            </p>
+            <a href="#contact" class="service-link" aria-label="زیاتر بخوێنەوە دەربارەی دروستکردنی وێبسایت و سیستەم">
+              زیاتر بخوێنەوە...
+              <svg class="icon flip-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+
+          <!-- خزمەتگوزاری ٢ -->
+          <div class="service-card card" data-aos="zoom-in-up" data-aos-delay="200">
+            <div class="service-icon-box" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+              </svg>
+            </div>
+            <h3 class="service-title">تەلارسازیی کلاود و مایکڕۆسێرڤس</h3>
+            <p class="service-desc">
+              نەخشەسازی سیستەمی کلاود کە توانای هەڵگرتنی بارگرانی و ملیۆنان داواکاری هەبێت بە کەمترین خەرجی مانگانە.
+            </p>
+            <a href="#contact" class="service-link" aria-label="زیاتر بخوێنەوە دەربارەی تەلارسازیی کلاود و مایکڕۆسێرڤس">
+              زیاتر بخوێنەوە...
+              <svg class="icon flip-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+
+          <!-- خزمەتگوزاری ٣ -->
+          <div class="service-card card" data-aos="zoom-in-up" data-aos-delay="300">
+            <div class="service-icon-box" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <h3 class="service-title">سیکیوریتی و پاراستنی داتا</h3>
+            <p class="service-desc">
+              پشکنین و دابینکردنی سەلامەتی سێرڤەر و بەرگرتن لە هێرشە ئەلیکترۆنییەکان لەگەڵ پاراستنی نهێنی داتای بەکارهێنەران.
+            </p>
+            <a href="#contact" class="service-link" aria-label="زیاتر بخوێنەوە دەربارەی سیکیوریتی و پاراستنی داتا">
+              زیاتر بخوێنەوە...
+              <svg class="icon flip-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+
+          <!-- خزمەتگوزاری ٤ -->
+          <div class="service-card card" data-aos="zoom-in-up" data-aos-delay="400">
+            <div class="service-icon-box" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+            </div>
+            <h3 class="service-title">چاودێری و باشترکردنی سێرڤەر</h3>
+            <p class="service-desc">
+              بەردەوام چاودێریکردنی کاتی کارکردنی سیستەم و بەرزکردنەوەی خێرایی بە بەکارهێنانی سیستەمی کشکردن و دابەشکردنی لۆد.
+            </p>
+            <a href="#contact" class="service-link" aria-label="زیاتر بخوێنەوە دەربارەی چاودێری و باشترکردنی سێرڤەر">
+              زیاتر بخوێنەوە...
+              <svg class="icon flip-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= PORTFOLIO SECTION ================= -->
+    <section class="section portfolio-section" id="portfolio">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="section-tag">کارەکانم</span>
+          <h2 class="section-title">نموونەی پڕۆژە هەڵبژێردراوەکان</h2>
+          <p class="section-subtitle">
+            کۆمەڵێک لەو پڕۆژە و ئەزموونە سەرکەوتووانەی کە بۆ کۆمپانیا و براندەکانم ئەنجامداوە.
+          </p>
+        </div>
+
+        <!-- دوگمەکانی فلتەر -->
+        <div class="portfolio-filters" role="group" aria-label="فلتەرکردنی پڕۆژەکان بەپێی بەشەکان | Filter portfolio projects by category">
+          <button class="filter-btn active" data-filter="all" aria-pressed="true">هەمووی</button>
+          <button class="filter-btn" data-filter="web" aria-pressed="false">وێبسایت</button>
+          <button class="filter-btn" data-filter="app" aria-pressed="false">ئەپڵیکەیشن</button>
+          <button class="filter-btn" data-filter="cloud" aria-pressed="false">کلاود و سیستەم</button>
+        </div>
+
+        <!-- تۆڕی ٦ کارتی پڕۆژە -->
+        <div class="portfolio-grid">
+          
+          <!-- پڕۆژەی ١ -->
+          <article class="portfolio-card card" data-category="cloud" data-aos="fade-up" data-aos-delay="100">
+            <div class="portfolio-thumbnail">
+              <div class="portfolio-tag-pill">کلاود</div>
+              <img src="./assets/images/project1.svg" alt="پلاتفۆرمی شیکاری سێرڤەر" class="portfolio-img" loading="lazy" />
+            </div>
+            <div class="portfolio-info">
+              <h3 class="portfolio-title">پلاتفۆرمی شیکاری سێرڤەر</h3>
+              <p class="portfolio-desc">سیستەمی چاودێری ڕاستەوخۆی سەرچاوەکان بە پشکنینی ساتەوەخت و بەرهەمهێنانی ڕاپۆرت.</p>
+              <button type="button" class="portfolio-link-btn" aria-label="بینینی پڕۆژەی پلاتفۆرمی شیکاری سێرڤەر">
+                بینینی پڕۆژە
+                <svg class="icon flip-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- پڕۆژەی ٢ -->
+          <article class="portfolio-card card" data-category="web" data-aos="fade-up" data-aos-delay="200">
+            <div class="portfolio-thumbnail">
+              <div class="portfolio-tag-pill">وێبسایت</div>
+              <img src="./assets/images/project2.svg" alt="پۆرتاڵی دەزگای دارایی" class="portfolio-img" loading="lazy" />
+            </div>
+            <div class="portfolio-info">
+              <h3 class="portfolio-title">پۆرتاڵی دەزگای دارایی</h3>
+              <p class="portfolio-desc">وێبسایتی پارێزراوی بانکداری ئەلیکترۆنی بە بەکارهێنانی تەکنەلۆجیای نوێ و ستانداردی ئاسایش.</p>
+              <button type="button" class="portfolio-link-btn" aria-label="بینینی پڕۆژەی پۆرتاڵی دەزگای دارایی">
+                بینینی پڕۆژە
+                <svg class="icon flip-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- پڕۆژەی ٣ -->
+          <article class="portfolio-card card" data-category="app" data-aos="fade-up" data-aos-delay="300">
+            <div class="portfolio-thumbnail">
+              <div class="portfolio-tag-pill">ئەپڵیکەیشن</div>
+              <img src="./assets/images/project3.svg" alt="سیستەمی بەڕێوەبردنی کۆگا" class="portfolio-img" loading="lazy" />
+            </div>
+            <div class="portfolio-info">
+              <h3 class="portfolio-title">سیستەمی بەڕێوەبردنی کۆگا</h3>
+              <p class="portfolio-desc">ئەپی سەر وێب بۆ چاودێریکردنی کەلوپەل و فرۆش بە بەستنەوەی چەندین لقی کۆمپانیا.</p>
+              <button type="button" class="portfolio-link-btn" aria-label="بینینی پڕۆژەی سیستەمی بەڕێوەبردنی کۆگا">
+                بینینی پڕۆژە
+                <svg class="icon flip-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- پڕۆژەی ٤ -->
+          <article class="portfolio-card card" data-category="cloud" data-aos="fade-up" data-aos-delay="100">
+            <div class="portfolio-thumbnail">
+              <div class="portfolio-tag-pill">کلاود</div>
+              <img src="./assets/images/project4.svg" alt="دەروازەی خێرای API" class="portfolio-img" loading="lazy" />
+            </div>
+            <div class="portfolio-info">
+              <h3 class="portfolio-title">دەروازەی خێرای API</h3>
+              <p class="portfolio-desc">تەلارسازی بەڕێوەبردنی داواکارییە گەورەکان و دابەشکردنی لۆد لەنێوان سێرڤەرەکاندا.</p>
+              <button type="button" class="portfolio-link-btn" aria-label="بینینی پڕۆژەی دەروازەی خێرای API">
+                بینینی پڕۆژە
+                <svg class="icon flip-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- پڕۆژەی ٥ -->
+          <article class="portfolio-card card" data-category="web" data-aos="fade-up" data-aos-delay="200">
+            <div class="portfolio-thumbnail">
+              <div class="portfolio-tag-pill">وێبسایت</div>
+              <img src="./assets/images/project5.svg" alt="ماڵپەڕی بازرگانی فرۆشتن" class="portfolio-img" loading="lazy" />
+            </div>
+            <div class="portfolio-info">
+              <h3 class="portfolio-title">ماڵپەڕی بازرگانی فرۆشتن</h3>
+              <p class="portfolio-desc">پلاتفۆرمی بازرگانی تەواو بەستراوە بە سیستەمی پارەدانی ئەلیکترۆنی و کارتەکانی کڕین.</p>
+              <button type="button" class="portfolio-link-btn" aria-label="بینینی پڕۆژەی ماڵپەڕی بازرگانی فرۆشتن">
+                بینینی پڕۆژە
+                <svg class="icon flip-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- پڕۆژەی ٦ -->
+          <article class="portfolio-card card" data-category="app" data-aos="fade-up" data-aos-delay="300">
+            <div class="portfolio-thumbnail">
+              <div class="portfolio-tag-pill">ئەپڵیکەیشن</div>
+              <img src="./assets/images/project6.svg" alt="داشبۆردی داتا و ئامار" class="portfolio-img" loading="lazy" />
+            </div>
+            <div class="portfolio-info">
+              <h3 class="portfolio-title">داشبۆردی داتا و ئامار</h3>
+              <p class="portfolio-desc">ڕووکاری کارگێڕی بۆ شیکاریکردنی ڕەفتاری بەکارهێنەران و هەڵسەنگاندنی گەشەی پڕۆژە.</p>
+              <button type="button" class="portfolio-link-btn" aria-label="بینینی پڕۆژەی داشبۆردی داتا و ئامار">
+                بینینی پڕۆژە
+                <svg class="icon flip-rtl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= CONTACT SECTION ================= -->
+    <section class="section contact-section" id="contact">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="section-tag">پەیوەندیکردن</span>
+          <h2 class="section-title">با پێکەوە کار بکەین!</h2>
+          <p class="section-subtitle">
+            دەتوانیت لە ڕێگەی ئەم ناونیشان و ژمارانەوە ڕاستەوخۆ پەیوەندیم پێوە بکەیت.
+          </p>
+        </div>
+
+        <div class="contact-cards-container">
+          
+          <!-- کارتی ١: ژمارەی تەلەفۆن / واتسئەپ -->
+          <div class="info-item-card card" data-aos="zoom-in" data-aos-delay="0">
+            <div class="info-icon-box">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+            </div>
+            <div class="info-meta">
+              <span class="info-title">پەیوەندی تەلەفۆنی / واتسئەپ</span>
+              <span class="info-value phone-value">
+                <a href="https://wa.me/9647732640262" target="_blank" rel="noopener noreferrer" aria-label="پەیوەندیکردن لە ڕێگەی واتسئەپ: +964 773 2640262 | Chat on WhatsApp">+964 773 2640262</a>
+              </span>
+            </div>
+          </div>
+
+          <!-- کارتی ٢: ئیمەیڵ -->
+          <div class="info-item-card card" data-aos="zoom-in" data-aos-delay="150">
+            <div class="info-icon-box">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </div>
+            <div class="info-meta">
+              <span class="info-title">ئیمەیڵی فەرمی</span>
+              <span class="info-value">
+                <a href="mailto:Hemin.Sherko@gmail.com" aria-label="ناردنی ئیمەیڵ بۆ Hemin.Sherko@gmail.com | Send Email">Hemin.Sherko@gmail.com</a>
+              </span>
+            </div>
+          </div>
+
+          <!-- کارتی ٣: شوێن -->
+          <div class="info-item-card card" data-aos="zoom-in" data-aos-delay="300">
+            <div class="info-icon-box">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div class="info-meta">
+              <span class="info-title">شوێنی نیشتەجێبوون</span>
+              <span class="info-value address-value">قەزای کەلار - پارێزگای سلێمانی - هەرێمی کوردستان</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER SECTION ================= -->
+  <footer class="footer">
+    <div class="container footer-container">
+      
+      <div class="footer-left">
+        <a href="#hero" class="logo footer-logo notranslate" aria-label="پەڕەی سەرەکی - هێمن شێرکۆ | Home">
+          <span class="logo-name">هێمن</span>
+          <span class="logo-accent" style="color: #60a5fa;">شێرکۆ</span>
+        </a>
+        <p class="footer-copy">
+          هەموو مافەکان پارێزراون &copy; <span id="current-year"></span> <span class="notranslate">هێمن شێرکۆ</span>.
+        </p>
+      </div>
+
+      <div class="footer-right">
+        <!-- بازنەی تۆڕە کۆمەڵایەتییەکان -->
+        <div class="social-circles">
+          <!-- GitHub -->
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-circle-btn" aria-label="پەڕەی گیتھەبی هێمن شێرکۆ | Hemin Sherko GitHub Profile">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+          </a>
+          <!-- LinkedIn -->
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-circle-btn" aria-label="پەڕەی لینکتئینی هێمن شێرکۆ | Hemin Sherko LinkedIn Profile">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+          <!-- Twitter / X -->
+          <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-circle-btn" aria-label="پەڕەی ئێکس هێمن شێرکۆ | Hemin Sherko X Profile">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ================= MODALS & UTILITIES ================= -->
+  <!-- مۆداڵی پڕۆژەکان (Project Modal / Lightbox) -->
+  <div id="project-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc">
+    <div class="modal-content">
+      <button class="close-modal" aria-label="داخستنی پەنجەرەی مۆداڵ | Close modal">&times;</button>
+      <img id="modal-img" src="" alt="پێشبینینی پڕۆژە | Project Preview" loading="lazy" />
+      <h3 id="modal-title"></h3>
+      <p id="modal-desc"></p>
+    </div>
+  </div>
+
+  <!-- دوگمەی گەڕانەوە بۆ سەرەوە (Back to Top Button) -->
+  <button id="backToTop" class="back-to-top" aria-label="گەڕانەوە بۆ سەرەوەی پەڕە | Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <!-- ================= SCRIPTS ================= -->
+  <!-- گووگڵ تەرجومە (Google Translate Hidden Element & Script) -->
+  <div id="google_translate_element" style="display:none;"></div>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'ku',
+        includedLanguages: 'ku,en,ar,ckb',
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <!-- External Libraries (Non-blocking with defer) -->
+  <!-- AOS (Animate On Scroll) JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+  <!-- VanillaTilt.js (3D Tilt Effect) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js" defer></script>
+  <!-- Particles.js (Particle Network Background) -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
+  <!-- Core Application Script -->
+  <script src="./js/script.js" defer></script>
+</body>
+</html>
