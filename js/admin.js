@@ -1,11 +1,10 @@
 /**
  * ==============================================================================
- * Hemin Sherko - Admin Dashboard Logic
- * Powered by Firebase v10 Modular Web SDK
+ * Hemin Sherko - Admin CMS Controller (Kurdish RTL)
+ * Complete Content Management System powered by Firebase v10 Modular Web SDK
  * ==============================================================================
  */
 
-// 1. Firebase Modular CDN Imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
 import { 
   getAuth, 
@@ -20,7 +19,7 @@ import {
   getDoc 
 } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
-// 2. Firebase Configuration
+// Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDZjxwqKKddb2L2XLR7obZmjlXDYbl6p48",
   authDomain: "hemin-portfolio.firebaseapp.com",
@@ -30,12 +29,15 @@ const firebaseConfig = {
   appId: "1:52349564982:web:c09fbe8747b8422572c097"
 };
 
-// 3. Initialize Firebase Services
+// Initialize Firebase Services
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// 4. DOM Elements Cache
+// Firestore General Document Reference
+const generalDocRef = doc(db, "siteData", "general");
+
+// DOM Caches
 const authLoading = document.getElementById('auth-loading');
 const loginContainer = document.getElementById('login-container');
 const dashboardContainer = document.getElementById('dashboard-container');
@@ -49,27 +51,151 @@ const loginError = document.getElementById('login-error');
 const logoutBtn = document.getElementById('logout-btn');
 const userEmailDisplay = document.getElementById('user-email-display');
 
-const contentForm = document.getElementById('content-form');
-const heroTitleInput = document.getElementById('hero-title');
-const aboutTextInput = document.getElementById('about-text');
-const saveBtn = document.getElementById('save-btn');
+const saveAllBtn = document.getElementById('save-all-btn');
+const saveBottomBtn = document.getElementById('save-bottom-btn');
 const saveStatus = document.getElementById('save-status');
 const syncStatus = document.getElementById('sync-status');
+const saveBarIndicatorText = document.getElementById('save-bar-indicator-text');
 
-// Firestore Reference for General Site Data
-const generalDocRef = doc(db, "siteData", "general");
+const sidebarTabs = document.querySelectorAll('.sidebar-tab');
+const tabPanels = document.querySelectorAll('.tab-panel');
+
+// Default Content Fallbacks (Sensible Kurdish defaults matching current portfolio)
+const defaultSiteData = {
+  hero: {
+    greeting: "سڵاو، من ناوم",
+    name: "هێمن شێرکۆ",
+    title: "ئەندازیاری سیستەم",
+    description: "پەرەپێدەر و تەلارسازی سیستەمی دیجیتاڵی پێشکەوتوو. یارمەتی کۆمپانیا و براندە بازرگانییەکان دەدەم لە نەخشەسازی ژێرخانی کلاود، پلاتفۆرمی خێرا و پاراستنی سەقامگیری داتابەیس.",
+    image: "./assets/images/my-photo1.png"
+  },
+  about: {
+    leadTitle: "ئەزموونێکی دەوڵەمەند لە بونیاتنانی چارەسەری تەکنیکی بەهێز",
+    bio: "من ئەندازیاری سیستەمم و خاوەنی ئەزموونی چەندین ساڵەم لە دیزاینکردنی تەلارسازیی پڕۆگرامینگ، بەڕێوەبردنی سێرڤەر و بەستنەوەی مایکڕۆسێرڤسەکان. سەرنجم لەسەر کەمکردنەوەی خەرجییەکان، خێراترکردنی وەڵامدانەوەی سیستەم و گەیاندنی بەرزترین ئاستی سیکیوریتییە."
+  },
+  skills: [
+    { name: "نەخشەسازی و تەلارسازیی سیستەم", percentage: 95 },
+    { name: "بەڕێوەبردنی ژێرخانی کلاود و سێرڤەر", percentage: 92 },
+    { name: "پەرەپێدانی خزمەتگوزارییەکان و API", percentage: 90 },
+    { name: "پاراستنی داتا و سیکیوریتی تۆڕ", percentage: 88 }
+  ],
+  services: [
+    {
+      title: "دروستکردنی وێبسایت و سیستەم",
+      desc: "دیزاین و پرۆگرامکردنی ماڵپەڕ و وێب ئەپڵیکەیشنی تایبەت بە کوالێتی بەرز، خێرایی بێوێنە و ئەزموونی بەکارهێنەری مۆدێرن.",
+      icon: "monitor"
+    },
+    {
+      title: "تەلارسازیی کلاود و مایکڕۆسێرڤس",
+      desc: "نەخشەسازی سیستەمی کلاود کە توانای هەڵگرتنی بارگرانی و ملیۆنان داواکاری هەبێت بە کەمترین خەرجی مانگانە.",
+      icon: "cloud"
+    },
+    {
+      title: "سیکیوریتی و پاراستنی داتا",
+      desc: "پشکنین و دابینکردنی سەلامەتی سێرڤەر و بەرگرتن لە هێرشە ئەلیکترۆنییەکان لەگەڵ پاراستنی نهێنی داتای بەکارهێنەران.",
+      icon: "shield"
+    },
+    {
+      title: "چاودێری و باشترکردنی سێرڤەر",
+      desc: "بەردەوام چاودێریکردنی کاتی کارکردنی سیستەم و بەرزکردنەوەی خێرایی بە بەکارهێنانی سیستەمی کشکردن و دابەشکردنی لۆد.",
+      icon: "activity"
+    }
+  ],
+  portfolio: [
+    {
+      title: "پلاتفۆرمی شیکاری سێرڤەر",
+      category: "کلاود",
+      image: "./assets/images/project1.svg",
+      desc: "سیستەمی چاودێری ڕاستەوخۆی سەرچاوەکان بە پشکنینی ساتەوەخت و بەرهەمهێنانی ڕاپۆرت."
+    },
+    {
+      title: "پۆرتاڵی دەزگای دارایی",
+      category: "وێبسایت",
+      image: "./assets/images/project2.svg",
+      desc: "وێبسایتی پارێزراوی بانکداری ئەلیکترۆنی بە بەکارهێنانی تەکنەلۆجیای نوێ و ستانداردی ئاسایش."
+    },
+    {
+      title: "سیستەمی بەڕێوەبردنی کۆگا",
+      category: "ئەپڵیکەیشن",
+      image: "./assets/images/project3.svg",
+      desc: "ئەپی سەر وێب بۆ چاودێریکردنی کەلوپەل و فرۆش بە بەستنەوەی چەندین لقی کۆمپانیا."
+    },
+    {
+      title: "دەروازەی خێرای API",
+      category: "کلاود",
+      image: "./assets/images/project4.svg",
+      desc: "تەلارسازی بەڕێوەبردنی داواکارییە گەورەکان و دابەشکردنی لۆد لەنێوان سێرڤەرەکاندا."
+    },
+    {
+      title: "ماڵپەڕی بازرگانی فرۆشتن",
+      category: "وێبسایت",
+      image: "./assets/images/project5.svg",
+      desc: "پلاتفۆرمی بازرگانی تەواو بەستراوە بە سیستەمی پارەدانی ئەلیکترۆنی و کارتەکانی کڕین."
+    },
+    {
+      title: "داشبۆردی داتا و ئامار",
+      category: "ئەپڵیکەیشن",
+      image: "./assets/images/project6.svg",
+      desc: "ڕووکاری کارگێڕی بۆ شیکاریکردنی ڕەفتاری بەکارهێنەران و هەڵسەنگاندنی گەشەی پڕۆژە."
+    }
+  ],
+  testimonials: [
+    {
+      quote: "هێمن یەکێکە لە لێهاتووترین ئەندازیارانی سیستەم کە کارم لەگەڵ کردبێت، ژێرخانی کۆمپانیاکەمانی لە ڕووی خێرایی و سیکیوریتییەوە بە تەواوی گۆڕی.",
+      author: "کارزان ڕەحیم",
+      role: "بەڕێوەبەری تەکنیکی (CTO)"
+    },
+    {
+      quote: "شارەزایی لە کلاود و دابەشکردنی لۆد بێ وێنەیە، پڕۆژەکانی هەمیشە لە کاتی خۆیدا و بە بەرزترین کوالێتی پێشکەش دەکات.",
+      author: "سۆران مەحموود",
+      role: "بەڕێوەبەری پڕۆژە (Project Manager)"
+    },
+    {
+      quote: "چارەسەرەکانی بۆ ژێرخانی کلاود خەرجیی سێرڤەرەکانی ئێمەی بە ڕێژەی ٤٠٪ کەمکردەوە و سەقامگیری تەواوی بە پلاتفۆرمەکەمان بەخشی.",
+      author: "دکتۆر ئاراس کەریم",
+      role: "دامەزرێنەر و بەڕێوەبەر (CEO)"
+    }
+  ],
+  contact: {
+    phone: "+964 773 2640262",
+    email: "Hemin.Sherko@gmail.com",
+    address: "قەزای کەلار - پارێزگای سلێمانی - هەرێمی کوردستان",
+    copyright: "هەموو مافەکان پارێزراون"
+  }
+};
 
 // ==============================================================================
-// 5. AUTHENTICATION STATE OBSERVER
+// TAB NAVIGATION LOGIC
+// ==============================================================================
+sidebarTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const targetTabId = tab.getAttribute('data-tab');
+
+    sidebarTabs.forEach(t => {
+      t.classList.remove('active');
+      t.setAttribute('aria-selected', 'false');
+    });
+    tabPanels.forEach(p => p.classList.remove('active'));
+
+    tab.classList.add('active');
+    tab.setAttribute('aria-selected', 'true');
+
+    const targetPanel = document.getElementById(targetTabId);
+    if (targetPanel) {
+      targetPanel.classList.add('active');
+    }
+  });
+});
+
+// ==============================================================================
+// AUTHENTICATION STATE OBSERVER
 // ==============================================================================
 onAuthStateChanged(auth, async (user) => {
-  // Hide initial loading screen once auth status is determined
   if (authLoading) {
     authLoading.style.display = 'none';
   }
 
   if (user) {
-    // User is signed in
     loginContainer.style.display = 'none';
     dashboardContainer.style.display = 'flex';
 
@@ -77,20 +203,17 @@ onAuthStateChanged(auth, async (user) => {
       userEmailDisplay.textContent = user.email || 'Admin';
     }
 
-    // Load website content from Firestore
-    await loadWebsiteContent();
+    // Load full CMS configuration from Firestore
+    await loadAllCMSData();
   } else {
-    // User is signed out
     dashboardContainer.style.display = 'none';
     loginContainer.style.display = 'flex';
-
-    // Clear any previous error states
     hideLoginError();
   }
 });
 
 // ==============================================================================
-// 6. LOGIN FORM HANDLER
+// LOGIN HANDLER
 // ==============================================================================
 if (loginForm) {
   loginForm.addEventListener('submit', async (e) => {
@@ -100,118 +223,247 @@ if (loginForm) {
     const password = loginPassword.value;
 
     if (!email || !password) {
-      showLoginError("Please provide both email and password.");
+      showLoginError("تکایە هەردوو ئیمەیڵ و تێپەڕەوشە بنووسە.");
       return;
     }
 
-    setButtonLoading(loginBtn, true, "Signing in...");
+    setButtonLoading(loginBtn, true, "خەریکی چوونەژوورەوەیە...");
     hideLoginError();
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      // onAuthStateChanged will handle switching to dashboard view
     } catch (error) {
       console.error("Login failed:", error);
-      let userFriendlyMsg = "Authentication failed. Please check your credentials.";
+      let userFriendlyMsg = "چوونەژوورەوە سەرکەوتوو نەبوو. تکایە زانیارییەکانت بپشکنە.";
 
       if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
-        userFriendlyMsg = "Invalid email or password. Please verify your credentials.";
+        userFriendlyMsg = "ئیمەیڵ یان وشەی نهێنی نادروستە!";
       } else if (error.code === 'auth/too-many-requests') {
-        userFriendlyMsg = "Access temporarily blocked due to multiple failed login attempts. Please try again later.";
+        userFriendlyMsg = "هەوڵدانی زۆر، بە شێوەیەکی کاتی بلۆک کرا. تکایە دواتر تاقی بکەرەوە.";
       } else if (error.code === 'auth/network-request-failed') {
-        userFriendlyMsg = "Network error. Please check your internet connection.";
+        userFriendlyMsg = "کێشەی هێڵی ئینتەرنێت، پەیوەستبوون بەردەست نییە.";
       }
 
       showLoginError(userFriendlyMsg);
     } finally {
-      setButtonLoading(loginBtn, false, "Sign In");
+      setButtonLoading(loginBtn, false, "چوونەژوورەوە");
     }
   });
 }
 
 // ==============================================================================
-// 7. LOGOUT HANDLER
+// LOGOUT HANDLER
 // ==============================================================================
 if (logoutBtn) {
   logoutBtn.addEventListener('click', async () => {
     try {
       await signOut(auth);
-      // onAuthStateChanged will handle switching back to login view
     } catch (error) {
       console.error("Logout error:", error);
-      alert("Error signing out. Please try again.");
+      alert("هەڵەیەک ڕوویدا لە کاتی دەرچووندا.");
     }
   });
 }
 
 // ==============================================================================
-// 8. FIRESTORE DATA RETRIEVAL (READ)
+// FIRESTORE: LOAD FULL CMS CONFIGURATION
 // ==============================================================================
-async function loadWebsiteContent() {
-  updateSyncBadge("Fetching from Firestore...", false);
+async function loadAllCMSData() {
+  updateSyncBadge("خەریکی خوێندنەوەی داتایە...", false);
 
   try {
     const docSnap = await getDoc(generalDocRef);
+    let data = defaultSiteData;
 
     if (docSnap.exists()) {
-      const data = docSnap.data();
-      if (heroTitleInput) heroTitleInput.value = data.heroTitle || '';
-      if (aboutTextInput) aboutTextInput.value = data.aboutText || '';
-      updateSyncBadge("Synced with Firestore", true);
-    } else {
-      console.info("Document 'siteData/general' does not exist yet. Ready for first save.");
-      updateSyncBadge("Ready to initialize", true);
+      const remoteData = docSnap.data();
+      // Deep merge with defaults to ensure all keys exist
+      data = {
+        hero: { ...defaultSiteData.hero, ...(remoteData.hero || {}) },
+        about: { ...defaultSiteData.about, ...(remoteData.about || {}) },
+        skills: remoteData.skills && remoteData.skills.length ? remoteData.skills : defaultSiteData.skills,
+        services: remoteData.services && remoteData.services.length ? remoteData.services : defaultSiteData.services,
+        portfolio: remoteData.portfolio && remoteData.portfolio.length ? remoteData.portfolio : defaultSiteData.portfolio,
+        testimonials: remoteData.testimonials && remoteData.testimonials.length ? remoteData.testimonials : defaultSiteData.testimonials,
+        contact: { ...defaultSiteData.contact, ...(remoteData.contact || {}) }
+      };
+
+      // Backwards compatibility fallbacks
+      if (remoteData.heroTitle && !remoteData.hero?.title) data.hero.title = remoteData.heroTitle;
+      if (remoteData.aboutText && !remoteData.about?.bio) data.about.bio = remoteData.aboutText;
     }
+
+    populateFormWithData(data);
+    updateSyncBadge("سەیڤ بووە", true);
   } catch (error) {
-    console.error("Error fetching general site data:", error);
-    showStatusMessage(`Error loading content: ${error.message}`, "error");
-    updateSyncBadge("Sync error", false);
+    console.error("Error loading CMS data from Firestore:", error);
+    showStatusMessage(`هەڵە لە هێنانی داتاکان: ${error.message}`, "error");
+    updateSyncBadge("کێشە لە پەیوەستبوون", false);
+    // Populate defaults so the user is never stuck with an empty form
+    populateFormWithData(defaultSiteData);
+  }
+}
+
+/**
+ * Fills all inputs and textareas across all CMS tabs with data
+ */
+function populateFormWithData(data) {
+  // 1. Hero Section
+  setInputValue('hero-greeting', data.hero?.greeting);
+  setInputValue('hero-name', data.hero?.name);
+  setInputValue('hero-title', data.hero?.title);
+  setInputValue('hero-desc', data.hero?.description);
+  setInputValue('hero-img', data.hero?.image);
+
+  // 2. About & Skills
+  setInputValue('about-lead-title', data.about?.leadTitle);
+  setInputValue('about-bio', data.about?.bio);
+  if (Array.isArray(data.skills)) {
+    data.skills.forEach((skill, i) => {
+      setInputValue(`skill-name-${i}`, skill.name);
+      setInputValue(`skill-pct-${i}`, skill.percentage);
+    });
+  }
+
+  // 3. Services
+  if (Array.isArray(data.services)) {
+    data.services.forEach((service, i) => {
+      setInputValue(`service-title-${i}`, service.title);
+      setInputValue(`service-desc-${i}`, service.desc);
+      setInputValue(`service-icon-${i}`, service.icon);
+    });
+  }
+
+  // 4. Portfolio
+  if (Array.isArray(data.portfolio)) {
+    data.portfolio.forEach((proj, i) => {
+      setInputValue(`portfolio-title-${i}`, proj.title);
+      setInputValue(`portfolio-cat-${i}`, proj.category);
+      setInputValue(`portfolio-img-${i}`, proj.image);
+      setInputValue(`portfolio-desc-${i}`, proj.desc);
+    });
+  }
+
+  // 5. Testimonials
+  if (Array.isArray(data.testimonials)) {
+    data.testimonials.forEach((t, i) => {
+      setInputValue(`testimonial-quote-${i}`, t.quote);
+      setInputValue(`testimonial-author-${i}`, t.author);
+      setInputValue(`testimonial-role-${i}`, t.role);
+    });
+  }
+
+  // 6. Contact & Footer
+  setInputValue('contact-phone', data.contact?.phone);
+  setInputValue('contact-email', data.contact?.email);
+  setInputValue('contact-address', data.contact?.address);
+  setInputValue('footer-copyright', data.contact?.copyright);
+}
+
+function setInputValue(elementId, value) {
+  const el = document.getElementById(elementId);
+  if (el && value !== undefined && value !== null) {
+    el.value = value;
   }
 }
 
 // ==============================================================================
-// 9. FIRESTORE DATA PERSISTENCE (WRITE / MERGE)
+// FIRESTORE: SAVE FULL CMS CONFIGURATION
 // ==============================================================================
-if (contentForm) {
-  contentForm.addEventListener('submit', async (e) => {
+async function saveAllCMSData() {
+  setButtonLoading(saveAllBtn, true, "خەریکی سەیڤکردنە...");
+  setButtonLoading(saveBottomBtn, true, "خەریکی سەیڤکردنە...");
+  updateSyncBadge("خەریکی پاشەکەوتکردنە...", false);
+
+  // Extract all fields into the complete structured JSON object
+  const fullData = {
+    hero: {
+      greeting: getInputValue('hero-greeting'),
+      name: getInputValue('hero-name'),
+      title: getInputValue('hero-title'),
+      description: getInputValue('hero-desc'),
+      image: getInputValue('hero-img')
+    },
+    about: {
+      leadTitle: getInputValue('about-lead-title'),
+      bio: getInputValue('about-bio')
+    },
+    skills: [
+      { name: getInputValue('skill-name-0'), percentage: parseInt(getInputValue('skill-pct-0'), 10) || 0 },
+      { name: getInputValue('skill-name-1'), percentage: parseInt(getInputValue('skill-pct-1'), 10) || 0 },
+      { name: getInputValue('skill-name-2'), percentage: parseInt(getInputValue('skill-pct-2'), 10) || 0 },
+      { name: getInputValue('skill-name-3'), percentage: parseInt(getInputValue('skill-pct-3'), 10) || 0 }
+    ],
+    services: [
+      { title: getInputValue('service-title-0'), desc: getInputValue('service-desc-0'), icon: getInputValue('service-icon-0') },
+      { title: getInputValue('service-title-1'), desc: getInputValue('service-desc-1'), icon: getInputValue('service-icon-1') },
+      { title: getInputValue('service-title-2'), desc: getInputValue('service-desc-2'), icon: getInputValue('service-icon-2') },
+      { title: getInputValue('service-title-3'), desc: getInputValue('service-desc-3'), icon: getInputValue('service-icon-3') }
+    ],
+    portfolio: [
+      { title: getInputValue('portfolio-title-0'), category: getInputValue('portfolio-cat-0'), image: getInputValue('portfolio-img-0'), desc: getInputValue('portfolio-desc-0') },
+      { title: getInputValue('portfolio-title-1'), category: getInputValue('portfolio-cat-1'), image: getInputValue('portfolio-img-1'), desc: getInputValue('portfolio-desc-1') },
+      { title: getInputValue('portfolio-title-2'), category: getInputValue('portfolio-cat-2'), image: getInputValue('portfolio-img-2'), desc: getInputValue('portfolio-desc-2') },
+      { title: getInputValue('portfolio-title-3'), category: getInputValue('portfolio-cat-3'), image: getInputValue('portfolio-img-3'), desc: getInputValue('portfolio-desc-3') },
+      { title: getInputValue('portfolio-title-4'), category: getInputValue('portfolio-cat-4'), image: getInputValue('portfolio-img-4'), desc: getInputValue('portfolio-desc-4') },
+      { title: getInputValue('portfolio-title-5'), category: getInputValue('portfolio-cat-5'), image: getInputValue('portfolio-img-5'), desc: getInputValue('portfolio-desc-5') }
+    ],
+    testimonials: [
+      { quote: getInputValue('testimonial-quote-0'), author: getInputValue('testimonial-author-0'), role: getInputValue('testimonial-role-0') },
+      { quote: getInputValue('testimonial-quote-1'), author: getInputValue('testimonial-author-1'), role: getInputValue('testimonial-role-1') },
+      { quote: getInputValue('testimonial-quote-2'), author: getInputValue('testimonial-author-2'), role: getInputValue('testimonial-role-2') }
+    ],
+    contact: {
+      phone: getInputValue('contact-phone'),
+      email: getInputValue('contact-email'),
+      address: getInputValue('contact-address'),
+      copyright: getInputValue('footer-copyright')
+    },
+    // Backwards compatibility roots for general consumers:
+    heroTitle: getInputValue('hero-title'),
+    aboutText: getInputValue('about-bio'),
+    updatedAt: new Date().toISOString()
+  };
+
+  try {
+    await setDoc(generalDocRef, fullData, { merge: true });
+    showStatusMessage("گۆڕانکارییەکان بە سەرکەوتوویی لە فایەربەیس سەیڤ کران!", "success");
+    updateSyncBadge("سەیڤ بووە", true);
+  } catch (error) {
+    console.error("Error saving CMS data to Firestore:", error);
+    showStatusMessage(`شکستی هێنا لە سەیڤکردندا: ${error.message}`, "error");
+    updateSyncBadge("سەیڤ نەکرا", false);
+  } finally {
+    setButtonLoading(saveAllBtn, false, "پاشەکەوتکردنی هەموو گۆڕانکارییەکان");
+    setButtonLoading(saveBottomBtn, false, "پاشەکەوتکردنی هەموو گۆڕانکارییەکان");
+  }
+}
+
+function getInputValue(elementId) {
+  const el = document.getElementById(elementId);
+  return el ? el.value.trim() : '';
+}
+
+// Bind save actions
+if (saveAllBtn) {
+  saveAllBtn.addEventListener('click', saveAllCMSData);
+}
+
+if (saveBottomBtn) {
+  saveBottomBtn.addEventListener('click', saveAllCMSData);
+}
+
+const cmsForm = document.getElementById('cms-form');
+if (cmsForm) {
+  cmsForm.addEventListener('submit', (e) => {
     e.preventDefault();
-
-    const heroTitle = heroTitleInput ? heroTitleInput.value.trim() : '';
-    const aboutText = aboutTextInput ? aboutTextInput.value.trim() : '';
-
-    setButtonLoading(saveBtn, true, "Saving Changes...");
-    updateSyncBadge("Saving to Firestore...", false);
-
-    try {
-      await setDoc(
-        generalDocRef, 
-        { 
-          heroTitle: heroTitle, 
-          aboutText: aboutText,
-          updatedAt: new Date().toISOString()
-        }, 
-        { merge: true }
-      );
-
-      showStatusMessage("Content changes saved successfully to Firestore!", "success");
-      updateSyncBadge("Synced with Firestore", true);
-    } catch (error) {
-      console.error("Error saving content to Firestore:", error);
-      showStatusMessage(`Failed to save changes: ${error.message}`, "error");
-      updateSyncBadge("Save failed", false);
-    } finally {
-      setButtonLoading(saveBtn, false, "Save Changes");
-    }
+    saveAllCMSData();
   });
 }
 
 // ==============================================================================
-// 10. UI UTILITY HELPERS
+// UI HELPERS & UTILITIES
 // ==============================================================================
-
-/**
- * Toggles a button between loading state with spinner and normal state
- */
 function setButtonLoading(btn, isLoading, labelText) {
   if (!btn) return;
   const btnText = btn.querySelector('.btn-text');
@@ -239,27 +491,18 @@ function setButtonLoading(btn, isLoading, labelText) {
   }
 }
 
-/**
- * Displays an error banner on the login screen
- */
 function showLoginError(msg) {
   if (!loginError) return;
   loginError.textContent = msg;
   loginError.style.display = 'block';
 }
 
-/**
- * Hides the login error banner
- */
 function hideLoginError() {
   if (!loginError) return;
   loginError.textContent = '';
   loginError.style.display = 'none';
 }
 
-/**
- * Displays an alert message on the dashboard screen
- */
 let statusTimeout = null;
 function showStatusMessage(msg, type = "success") {
   if (!saveStatus) return;
@@ -274,13 +517,12 @@ function showStatusMessage(msg, type = "success") {
   }, 4500);
 }
 
-/**
- * Updates the Firestore synchronization indicator
- */
 function updateSyncBadge(label, isSynced) {
-  if (!syncStatus) return;
-  syncStatus.innerHTML = `
-    <span class="pulse-indicator" style="background-color: ${isSynced ? '#10b981' : '#f59e0b'}; box-shadow: 0 0 8px ${isSynced ? '#10b981' : '#f59e0b'};"></span>
-    ${label}
-  `;
+  if (syncStatus) {
+    syncStatus.textContent = label;
+    syncStatus.style.color = isSynced ? '#10b981' : '#f59e0b';
+  }
+  if (saveBarIndicatorText) {
+    saveBarIndicatorText.textContent = label;
+  }
 }

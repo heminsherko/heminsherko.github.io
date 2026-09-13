@@ -7,7 +7,7 @@
 
 // Firebase Modular Web SDK v10 CDN Imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
 // Firebase Configuration (Matching admin credentials)
 const firebaseConfig = {
@@ -28,37 +28,167 @@ try {
 }
 
 /**
- * Fetch and update dynamic content (heroTitle, aboutText) from Firestore (siteData/general).
- * Wrapped in try/catch to ensure resilient fallback if offline or delayed.
+ * Subscribes to real-time live updates from Firestore (siteData/general).
+ * Whenever updates occur in the Admin Dashboard, DOM elements update instantly via WebSockets without page reload.
+ * Safely wrapped in try/catch to maintain fallback content when offline or delayed.
  */
-async function loadDynamicContent() {
+function initRealTimeContent() {
   try {
     if (!db) return;
     const docRef = doc(db, "siteData", "general");
-    const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      const data = docSnap.data();
-      const heroTitleElem = document.getElementById('hero-title');
-      const aboutTextElem = document.getElementById('about-text');
+    onSnapshot(docRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        console.log("Real-time update received from Firestore:", data);
 
-      if (heroTitleElem && data.heroTitle) {
-        heroTitleElem.textContent = data.heroTitle;
+        // 1. Hero Section Binding
+        const hero = data.hero || {};
+        const heroGreetingPrefix = document.getElementById('hero-greeting-prefix');
+        const heroName = document.getElementById('hero-name');
+        const heroTitleElem = document.getElementById('hero-title');
+        const heroDescElem = document.getElementById('hero-desc');
+        const heroImgElem = document.getElementById('hero-img');
+
+        if (heroGreetingPrefix && hero.greeting) heroGreetingPrefix.textContent = hero.greeting;
+        if (heroName && hero.name) heroName.textContent = hero.name;
+        const titleVal = hero.title || data.heroTitle;
+        if (heroTitleElem && titleVal) heroTitleElem.textContent = titleVal;
+        if (heroDescElem && hero.description) heroDescElem.textContent = hero.description;
+        if (heroImgElem && hero.image) {
+          heroImgElem.src = hero.image;
+          if (hero.name) heroImgElem.alt = `${hero.name} - Systems Architect portrait`;
+        }
+
+        // 2. About Section & Animated Skills
+        const about = data.about || {};
+        const aboutLeadTitle = document.getElementById('about-lead-title');
+        const aboutTextElem = document.getElementById('about-text');
+
+        if (aboutLeadTitle && about.leadTitle) aboutLeadTitle.textContent = about.leadTitle;
+        const bioVal = about.bio || data.aboutText;
+        if (aboutTextElem && bioVal) aboutTextElem.textContent = bioVal;
+
+        if (Array.isArray(data.skills)) {
+          data.skills.forEach((skill, i) => {
+            const titleEl = document.getElementById(`skill-title-${i}`);
+            const pctEl = document.getElementById(`skill-pct-${i}`);
+            const trackEl = document.getElementById(`skill-track-${i}`);
+            const fillEl = document.getElementById(`skill-fill-${i}`);
+
+            if (titleEl && skill.name) titleEl.textContent = skill.name;
+            if (pctEl && skill.percentage !== undefined) pctEl.textContent = `${skill.percentage}%`;
+            if (trackEl && skill.percentage !== undefined) {
+              trackEl.setAttribute('aria-valuenow', skill.percentage);
+              if (skill.name) trackEl.setAttribute('aria-label', `${skill.name}: ${skill.percentage}%`);
+            }
+            if (fillEl && skill.percentage !== undefined) {
+              fillEl.style.width = `${skill.percentage}%`;
+              fillEl.setAttribute('data-progress', `${skill.percentage}%`);
+            }
+          });
+        }
+
+        // 3. Services Section Binding
+        if (Array.isArray(data.services)) {
+          data.services.forEach((service, i) => {
+            const sTitle = document.getElementById(`service-title-${i}`);
+            const sDesc = document.getElementById(`service-desc-${i}`);
+            if (sTitle && service.title) sTitle.textContent = service.title;
+            if (sDesc && service.desc) sDesc.textContent = service.desc;
+          });
+        }
+
+        // 4. Portfolio Projects Binding
+        if (Array.isArray(data.portfolio)) {
+          data.portfolio.forEach((proj, i) => {
+            const pTitle = document.getElementById(`portfolio-title-${i}`);
+            const pCat = document.getElementById(`portfolio-cat-${i}`);
+            const pImg = document.getElementById(`portfolio-img-${i}`);
+            const pDesc = document.getElementById(`portfolio-desc-${i}`);
+
+            if (pTitle && proj.title) pTitle.textContent = proj.title;
+            if (pCat && proj.category) pCat.textContent = proj.category;
+            if (pImg && proj.image) {
+              pImg.src = proj.image;
+              if (proj.title) pImg.alt = proj.title;
+            }
+            if (pDesc && proj.desc) pDesc.textContent = proj.desc;
+          });
+        }
+
+        // 5. Testimonials Section Binding
+        if (Array.isArray(data.testimonials)) {
+          data.testimonials.forEach((t, i) => {
+            const tQuote = document.getElementById(`testimonial-quote-${i}`);
+            const tAuthor = document.getElementById(`testimonial-author-${i}`);
+            const tRole = document.getElementById(`testimonial-role-${i}`);
+
+            if (tQuote && t.quote) tQuote.textContent = t.quote;
+            if (tAuthor && t.author) tAuthor.textContent = t.author;
+            if (tRole && t.role) tRole.textContent = t.role;
+          });
+        }
+
+        // 6. Contact & Footer Binding
+        const contact = data.contact || {};
+        const phoneText = document.getElementById('contact-phone-text');
+        const phoneLink = document.getElementById('contact-phone-link');
+        const navCtaLink = document.getElementById('nav-cta-link');
+        const emailText = document.getElementById('contact-email-text');
+        const emailLink = document.getElementById('contact-email-link');
+        const addressText = document.getElementById('contact-address-text');
+        const footerCopy = document.getElementById('footer-copy-text');
+        const footerBrand = document.getElementById('footer-brand-name');
+
+        if (phoneText && contact.phone) {
+          phoneText.textContent = contact.phone;
+          const cleanDigits = contact.phone.replace(/[^0-9]/g, '');
+          if (cleanDigits) {
+            const part1 = cleanDigits.substring(0, 3);
+            const part2 = cleanDigits.substring(3);
+            if (phoneLink) {
+              phoneLink.setAttribute('data-part1', part1);
+              phoneLink.setAttribute('data-part2', part2);
+            }
+            if (navCtaLink) {
+              navCtaLink.setAttribute('data-part1', part1);
+              navCtaLink.setAttribute('data-part2', part2);
+            }
+          }
+        }
+
+        if (emailText && contact.email) {
+          emailText.textContent = contact.email;
+          const emailParts = contact.email.split('@');
+          if (emailParts.length === 2 && emailLink) {
+            emailLink.setAttribute('data-part1', emailParts[0]);
+            emailLink.setAttribute('data-part2', emailParts[1]);
+          }
+        }
+
+        if (addressText && contact.address) addressText.textContent = contact.address;
+        if (footerCopy && contact.copyright) footerCopy.textContent = contact.copyright;
+        if (footerBrand && hero.name) footerBrand.textContent = hero.name;
+
+        // Refresh AOS layout if available
+        if (typeof AOS !== 'undefined' && AOS.refresh) {
+          AOS.refresh();
+        }
       }
-      if (aboutTextElem && data.aboutText) {
-        aboutTextElem.textContent = data.aboutText;
-      }
-    }
+    }, (error) => {
+      console.warn("Firestore onSnapshot listener error, using static fallback:", error);
+    });
   } catch (error) {
-    console.warn("Could not load dynamic Firestore content, using static fallback:", error);
+    console.warn("Could not initialize Firestore real-time listener:", error);
   }
 }
 
 function initializePortfolio() {
   'use strict';
 
-  // Asynchronously fetch and render dynamic Firestore content
-  loadDynamicContent();
+  // Initialize real-time live sync with Firestore
+  initRealTimeContent();
 
   // ============================================================================
   // 1. DOM ELEMENT SELECTIONS (GROUPED & NULL-SAFE)
