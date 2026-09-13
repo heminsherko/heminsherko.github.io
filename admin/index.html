@@ -108,6 +108,12 @@
     <!-- Top Header -->
     <header class="dashboard-nav">
       <div class="nav-brand">
+        <!-- Hamburger Menu Button (Mobile Slide-In Drawer) -->
+        <button id="adminHamburger" class="admin-hamburger" aria-label="مینیوی بەشەکان">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
         <div class="logo-mark">HS</div>
         <div class="nav-titles">
           <h1>داشبۆردی هێمن (CMS)</h1>
@@ -149,11 +155,23 @@
     <!-- Global Toast Alert Banner -->
     <div id="save-status" class="alert-banner" style="display: none;" role="alert"></div>
 
+    <!-- Drawer Overlay Backdrop for Mobile -->
+    <div id="drawerOverlay" class="drawer-overlay" aria-hidden="true"></div>
+
     <!-- Main Workspace with Sidebar & Tab Content -->
     <div class="dashboard-body">
       
-      <!-- Right Sidebar (Navigation Tabs) -->
-      <aside class="dashboard-sidebar">
+      <!-- Right Sidebar (Navigation Tabs / Slide-In Drawer on Mobile) -->
+      <aside class="dashboard-sidebar" id="dashboardSidebar">
+        <!-- Mobile Drawer Header -->
+        <div class="drawer-header mobile-only">
+          <div class="drawer-brand">
+            <div class="logo-mark" style="width: 32px; height: 32px; font-size: 0.85rem;">HS</div>
+            <span class="drawer-title">مینیوی بەشەکان</span>
+          </div>
+          <button type="button" id="drawerCloseBtn" class="drawer-close-btn" aria-label="داخستنی مینیو">&times;</button>
+        </div>
+
         <div class="glass-panel sidebar-card">
           <div class="user-profile">
             <div class="avatar-box">هـ</div>
@@ -602,6 +620,19 @@
                     <textarea id="service-desc-0" rows="3" class="form-control" placeholder="دیزاین و پرۆگرامکردنی ماڵپەڕ و وێب ئەپڵیکەیشنی تایبەت..." required></textarea>
                   </div>
                   <div class="form-group">
+                    <label for="service-img-0">وێنەی خزمەتگوزاری</label>
+                    <div class="project-uploader-compact">
+                      <div class="preview-container">
+                        <img id="service-preview-0" class="image-preview-thumb" src="../assets/images/service1.svg" alt="Service 1" />
+                      </div>
+                      <button type="button" class="btn btn-upload" id="service-file-btn-0">
+                        <span>📷 وێنەی خزمەتگوزاری</span>
+                      </button>
+                      <input type="file" accept="image/*" class="service-image-input" data-index="0" id="service-file-input-0" style="display: none;" />
+                    </div>
+                    <input type="hidden" id="service-img-0" name="service_img_0" value="" />
+                  </div>
+                  <div class="form-group">
                     <label for="service-icon-0">جۆری ئایکۆن (SVG / ناو)</label>
                     <input type="text" id="service-icon-0" class="form-control" placeholder="monitor" dir="ltr" />
                   </div>
@@ -617,6 +648,19 @@
                   <div class="form-group">
                     <label for="service-desc-1">ڕوونکردنەوەی کورت</label>
                     <textarea id="service-desc-1" rows="3" class="form-control" placeholder="نەخشەسازی سیستەمی کلاود کە توانای هەڵگرتنی بارگرانی هەبێت..." required></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="service-img-1">وێنەی خزمەتگوزاری</label>
+                    <div class="project-uploader-compact">
+                      <div class="preview-container">
+                        <img id="service-preview-1" class="image-preview-thumb" src="../assets/images/service2.svg" alt="Service 2" />
+                      </div>
+                      <button type="button" class="btn btn-upload" id="service-file-btn-1">
+                        <span>📷 وێنەی خزمەتگوزاری</span>
+                      </button>
+                      <input type="file" accept="image/*" class="service-image-input" data-index="1" id="service-file-input-1" style="display: none;" />
+                    </div>
+                    <input type="hidden" id="service-img-1" name="service_img_1" value="" />
                   </div>
                   <div class="form-group">
                     <label for="service-icon-1">جۆری ئایکۆن (SVG / ناو)</label>
@@ -636,6 +680,19 @@
                     <textarea id="service-desc-2" rows="3" class="form-control" placeholder="پشکنین و دابینکردنی سەلامەتی سێرڤەر..." required></textarea>
                   </div>
                   <div class="form-group">
+                    <label for="service-img-2">وێنەی خزمەتگوزاری</label>
+                    <div class="project-uploader-compact">
+                      <div class="preview-container">
+                        <img id="service-preview-2" class="image-preview-thumb" src="../assets/images/service3.svg" alt="Service 3" />
+                      </div>
+                      <button type="button" class="btn btn-upload" id="service-file-btn-2">
+                        <span>📷 وێنەی خزمەتگوزاری</span>
+                      </button>
+                      <input type="file" accept="image/*" class="service-image-input" data-index="2" id="service-file-input-2" style="display: none;" />
+                    </div>
+                    <input type="hidden" id="service-img-2" name="service_img_2" value="" />
+                  </div>
+                  <div class="form-group">
                     <label for="service-icon-2">جۆری ئایکۆن (SVG / ناو)</label>
                     <input type="text" id="service-icon-2" class="form-control" placeholder="shield" dir="ltr" />
                   </div>
@@ -651,6 +708,19 @@
                   <div class="form-group">
                     <label for="service-desc-3">ڕوونکردنەوەی کورت</label>
                     <textarea id="service-desc-3" rows="3" class="form-control" placeholder="بەردەوام چاودێریکردنی کاتی کارکردنی سیستەم..." required></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="service-img-3">وێنەی خزمەتگوزاری</label>
+                    <div class="project-uploader-compact">
+                      <div class="preview-container">
+                        <img id="service-preview-3" class="image-preview-thumb" src="../assets/images/service4.svg" alt="Service 4" />
+                      </div>
+                      <button type="button" class="btn btn-upload" id="service-file-btn-3">
+                        <span>📷 وێنەی خزمەتگوزاری</span>
+                      </button>
+                      <input type="file" accept="image/*" class="service-image-input" data-index="3" id="service-file-input-3" style="display: none;" />
+                    </div>
+                    <input type="hidden" id="service-img-3" name="service_img_3" value="" />
                   </div>
                   <div class="form-group">
                     <label for="service-icon-3">جۆری ئایکۆن (SVG / ناو)</label>
@@ -700,9 +770,9 @@
                         <img id="portfolio-preview-0" class="image-preview-thumb" src="../assets/images/project1.svg" alt="Project 1" />
                       </div>
                       <button type="button" class="btn btn-upload" id="portfolio-file-btn-0">
-                        <span>📷 هەڵبژاردنی وێنە</span>
+                        <span>📷 وێنەی پڕۆژە</span>
                       </button>
-                      <input type="file" id="portfolio-file-input-0" accept="image/*" style="display: none;" />
+                      <input type="file" accept="image/*" class="portfolio-image-input" data-index="0" id="portfolio-file-input-0" style="display: none;" />
                     </div>
                     <input type="hidden" id="portfolio-img-0" name="portfolio_img_0" value="./assets/images/project1.svg" />
                   </div>
@@ -730,9 +800,9 @@
                         <img id="portfolio-preview-1" class="image-preview-thumb" src="../assets/images/project2.svg" alt="Project 2" />
                       </div>
                       <button type="button" class="btn btn-upload" id="portfolio-file-btn-1">
-                        <span>📷 هەڵبژاردنی وێنە</span>
+                        <span>📷 وێنەی پڕۆژە</span>
                       </button>
-                      <input type="file" id="portfolio-file-input-1" accept="image/*" style="display: none;" />
+                      <input type="file" accept="image/*" class="portfolio-image-input" data-index="1" id="portfolio-file-input-1" style="display: none;" />
                     </div>
                     <input type="hidden" id="portfolio-img-1" name="portfolio_img_1" value="./assets/images/project2.svg" />
                   </div>
@@ -760,9 +830,9 @@
                         <img id="portfolio-preview-2" class="image-preview-thumb" src="../assets/images/project3.svg" alt="Project 3" />
                       </div>
                       <button type="button" class="btn btn-upload" id="portfolio-file-btn-2">
-                        <span>📷 هەڵبژاردنی وێنە</span>
+                        <span>📷 وێنەی پڕۆژە</span>
                       </button>
-                      <input type="file" id="portfolio-file-input-2" accept="image/*" style="display: none;" />
+                      <input type="file" accept="image/*" class="portfolio-image-input" data-index="2" id="portfolio-file-input-2" style="display: none;" />
                     </div>
                     <input type="hidden" id="portfolio-img-2" name="portfolio_img_2" value="./assets/images/project3.svg" />
                   </div>
@@ -790,9 +860,9 @@
                         <img id="portfolio-preview-3" class="image-preview-thumb" src="../assets/images/project4.svg" alt="Project 4" />
                       </div>
                       <button type="button" class="btn btn-upload" id="portfolio-file-btn-3">
-                        <span>📷 هەڵبژاردنی وێنە</span>
+                        <span>📷 وێنەی پڕۆژە</span>
                       </button>
-                      <input type="file" id="portfolio-file-input-3" accept="image/*" style="display: none;" />
+                      <input type="file" accept="image/*" class="portfolio-image-input" data-index="3" id="portfolio-file-input-3" style="display: none;" />
                     </div>
                     <input type="hidden" id="portfolio-img-3" name="portfolio_img_3" value="./assets/images/project4.svg" />
                   </div>
@@ -820,9 +890,9 @@
                         <img id="portfolio-preview-4" class="image-preview-thumb" src="../assets/images/project5.svg" alt="Project 5" />
                       </div>
                       <button type="button" class="btn btn-upload" id="portfolio-file-btn-4">
-                        <span>📷 هەڵبژاردنی وێنە</span>
+                        <span>📷 وێنەی پڕۆژە</span>
                       </button>
-                      <input type="file" id="portfolio-file-input-4" accept="image/*" style="display: none;" />
+                      <input type="file" accept="image/*" class="portfolio-image-input" data-index="4" id="portfolio-file-input-4" style="display: none;" />
                     </div>
                     <input type="hidden" id="portfolio-img-4" name="portfolio_img_4" value="./assets/images/project5.svg" />
                   </div>
@@ -850,9 +920,9 @@
                         <img id="portfolio-preview-5" class="image-preview-thumb" src="../assets/images/project6.svg" alt="Project 6" />
                       </div>
                       <button type="button" class="btn btn-upload" id="portfolio-file-btn-5">
-                        <span>📷 هەڵبژاردنی وێنە</span>
+                        <span>📷 وێنەی پڕۆژە</span>
                       </button>
-                      <input type="file" id="portfolio-file-input-5" accept="image/*" style="display: none;" />
+                      <input type="file" accept="image/*" class="portfolio-image-input" data-index="5" id="portfolio-file-input-5" style="display: none;" />
                     </div>
                     <input type="hidden" id="portfolio-img-5" name="portfolio_img_5" value="./assets/images/project6.svg" />
                   </div>

@@ -119,8 +119,15 @@ function initRealTimeContent() {
           data.services.forEach((service, i) => {
             const sTitle = document.getElementById(`service-title-${i}`);
             const sDesc = document.getElementById(`service-desc-${i}`);
+            const sBox = document.getElementById(`service-icon-box-${i}`);
+
             if (sTitle && service.title) sTitle.textContent = service.title;
             if (sDesc && service.desc) sDesc.textContent = service.desc;
+
+            const sImgUrl = service.imageUrl || service.image;
+            if (sBox && sImgUrl && (sImgUrl.startsWith('data:image') || sImgUrl.startsWith('http') || sImgUrl.startsWith('.'))) {
+              sBox.innerHTML = `<img src="${sImgUrl}" alt="${service.title || ''}" class="service-icon-img" />`;
+            }
           });
         }
 
@@ -134,8 +141,9 @@ function initRealTimeContent() {
 
             if (pTitle && proj.title) pTitle.textContent = proj.title;
             if (pCat && proj.category) pCat.textContent = proj.category;
-            if (pImg && proj.image) {
-              pImg.src = proj.image;
+            const pImgSrc = proj.imageUrl || proj.image;
+            if (pImg && pImgSrc) {
+              pImg.src = pImgSrc;
               if (proj.title) pImg.alt = proj.title;
             }
             if (pDesc && proj.desc) pDesc.textContent = proj.desc;
