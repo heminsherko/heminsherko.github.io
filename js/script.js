@@ -80,6 +80,16 @@ function initRealTimeContent() {
           if (hero.name) heroImgElem.alt = `${hero.name} - Systems Architect portrait`;
         }
 
+        // Hero Floating Badges Binding
+        const heroBadge1Elem = document.getElementById('hero-badge-1');
+        const heroBadge2Elem = document.getElementById('hero-badge-2');
+        if (heroBadge1Elem) {
+          heroBadge1Elem.textContent = hero.badge1 || "ساڵانێک ئەزموونی پرۆفیشناڵ";
+        }
+        if (heroBadge2Elem) {
+          heroBadge2Elem.textContent = hero.badge2 || "وردەکاری لە ناوەڕۆک و ڕووکاردا";
+        }
+
         // 2. About Section & Animated Skills
         const about = data.about || {};
         const aboutLeadTitle = document.getElementById('about-lead-title');

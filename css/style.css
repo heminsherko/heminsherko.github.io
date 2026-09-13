@@ -859,9 +859,11 @@ img, svg {
 }
 
 .review-label {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--text-heading);
+  font-weight: 700;
+  line-height: 1.3;
+  white-space: nowrap;
 }
 
 /* Floating Experience Badge */
@@ -889,9 +891,10 @@ img, svg {
 }
 
 .exp-label {
-  font-size: 0.8rem;
+  font-size: 0.88rem;
   font-weight: 700;
   line-height: 1.3;
+  white-space: nowrap;
 }
 
 @keyframes floatBadge {

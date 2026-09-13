@@ -67,6 +67,8 @@ const defaultSiteData = {
     name: "هێمن شێرکۆ",
     title: "ئەندازیاری سیستەم",
     description: "پەرەپێدەر و تەلارسازی سیستەمی دیجیتاڵی پێشکەوتوو. یارمەتی کۆمپانیا و براندە بازرگانییەکان دەدەم لە نەخشەسازی ژێرخانی کلاود، پلاتفۆرمی خێرا و پاراستنی سەقامگیری داتابەیس.",
+    badge1: "ساڵانێک ئەزموونی پرۆفیشناڵ",
+    badge2: "وردەکاری لە ناوەڕۆک و ڕووکاردا",
     image: "./assets/images/my-photo1.png"
   },
   about: {
@@ -698,6 +700,8 @@ function populateFormWithData(data) {
   setInputValue('hero-name', data.hero?.name);
   setInputValue('hero-title', data.hero?.title);
   setInputValue('hero-desc', data.hero?.description);
+  setInputValue('input-badge-1', data.hero?.badge1 || "ساڵانێک ئەزموونی پرۆفیشناڵ");
+  setInputValue('input-badge-2', data.hero?.badge2 || "وردەکاری لە ناوەڕۆک و ڕووکاردا");
   const heroImage = data.hero?.image || data.heroImageUrl;
   if (heroImage) {
     setInputValue('hero-img', heroImage);
@@ -817,6 +821,8 @@ async function saveAllCMSData() {
       name: getInputValue('hero-name'),
       title: getInputValue('hero-title'),
       description: getInputValue('hero-desc'),
+      badge1: getInputValue('input-badge-1') || "ساڵانێک ئەزموونی پرۆفیشناڵ",
+      badge2: getInputValue('input-badge-2') || "وردەکاری لە ناوەڕۆک و ڕووکاردا",
       image: getInputValue('hero-img')
     },
     about: {
