@@ -502,8 +502,9 @@ textarea::placeholder {
 }
 
 /* Mobile Hamburger & Drawer Base Styles (Hidden on Desktop) */
+.mobile-drawer-btn,
 .admin-hamburger {
-  display: none;
+  display: none !important;
 }
 
 .drawer-overlay {
@@ -1332,82 +1333,81 @@ textarea::placeholder {
   }
 
   /* 2. Slide-In Drawer (Off-Canvas Menu) & Full-Screen Layout */
+  .mobile-drawer-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #253ca7;
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(37, 60, 167, 0.25);
+    margin-left: 8px;
+    z-index: 102;
+    flex-shrink: 0;
+    transition: background 0.2s ease;
+  }
+
+  .mobile-drawer-btn:hover,
+  .mobile-drawer-btn:active {
+    background: #1b2e88;
+  }
+
   .admin-hamburger {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    width: 26px !important;
-    height: 19px !important;
-    background: transparent !important;
-    border: none !important;
-    cursor: pointer !important;
-    padding: 0 !important;
-    margin-left: 8px !important;
-    z-index: 1002 !important;
-    flex-shrink: 0 !important;
+    display: none !important;
   }
 
-  .admin-hamburger span {
-    display: block !important;
-    height: 2.5px !important;
-    width: 100% !important;
-    background: var(--primary) !important;
-    border-radius: 4px !important;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  }
-
-  .admin-hamburger.open span:nth-child(1) {
-    transform: translateY(8.25px) rotate(45deg) !important;
-  }
-
-  .admin-hamburger.open span:nth-child(2) {
-    opacity: 0 !important;
-    transform: scaleX(0) !important;
-  }
-
-  .admin-hamburger.open span:nth-child(3) {
-    transform: translateY(-8.25px) rotate(-45deg) !important;
-  }
-
-  /* Drawer Overlay Backdrop */
+  /* Drawer Backdrop (.drawer-overlay) */
   .drawer-overlay {
     display: block !important;
     position: fixed !important;
     inset: 0 !important;
-    background: rgba(15, 23, 42, 0.45) !important;
+    background: rgba(0, 0, 0, 0.5) !important;
     backdrop-filter: blur(4px) !important;
     -webkit-backdrop-filter: blur(4px) !important;
-    z-index: 1000 !important;
+    z-index: 9998 !important;
     opacity: 0 !important;
     pointer-events: none !important;
     transition: opacity 0.3s ease !important;
   }
 
+  .drawer-overlay.open,
   .drawer-overlay.active {
     opacity: 1 !important;
     pointer-events: auto !important;
   }
 
-  /* Slide-In Drawer from Right */
+  /* Off-Canvas Drawer (Slide-In from Right) */
+  #adminSidebar,
+  .admin-sidebar,
   .dashboard-sidebar {
     position: fixed !important;
     top: 0 !important;
-    right: -100% !important;
+    right: -320px !important; /* hidden off-screen to the right (RTL) */
     width: 280px !important;
     height: 100vh !important;
     background: #ffffff !important;
-    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15) !important;
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15) !important;
     transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    z-index: 1001 !important;
-    padding: 20px 16px !important;
-    overflow-y: auto !important;
+    z-index: 9999 !important;
+    padding: 30px 16px !important;
     display: flex !important;
     flex-direction: column !important;
-    gap: 14px !important;
+    gap: 10px !important;
+    overflow-y: auto !important;
   }
 
+  #adminSidebar.open,
+  .admin-sidebar.open,
   .dashboard-sidebar.open {
-    right: 0 !important;
+    right: 0 !important; /* slides into view smoothly */
   }
 
   .mobile-only {
@@ -1453,6 +1453,7 @@ textarea::placeholder {
     border-radius: 0 !important;
     display: flex !important;
     flex-direction: column !important;
+    position: static !important;
   }
 
   .sidebar-card .user-profile {
@@ -1522,14 +1523,17 @@ textarea::placeholder {
     padding: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
+    margin: 0 !important;
   }
 
-  .dashboard-content {
+  main,
+  .dashboard-content,
+  .admin-main {
     width: 100% !important;
     max-width: 100% !important;
+    margin: 0 !important;
     padding: 16px !important;
-    padding-bottom: 105px !important;
-    margin: 0 auto !important;
+    padding-bottom: 110px !important;
   }
 
   .content-card {

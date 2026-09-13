@@ -488,30 +488,35 @@ initAllImageUploaders();
 // ==============================================================================
 // MOBILE OFF-CANVAS HAMBURGER DRAWER CONTROLLER
 // ==============================================================================
-const adminHamburger = document.getElementById('adminHamburger');
-const dashboardSidebar = document.getElementById('dashboardSidebar') || document.querySelector('.dashboard-sidebar');
+// OFF-CANVAS MOBILE DRAWER CONTROLLER
+// ==============================================================================
+const mobileDrawerBtn = document.getElementById('mobileDrawerBtn') || document.getElementById('adminHamburger');
+const adminSidebar = document.getElementById('adminSidebar') || document.getElementById('dashboardSidebar') || document.querySelector('.admin-sidebar');
 const drawerOverlay = document.getElementById('drawerOverlay');
 const drawerCloseBtn = document.getElementById('drawerCloseBtn');
 
 function openDrawer() {
-  if (adminHamburger) adminHamburger.classList.add('open');
-  if (dashboardSidebar) dashboardSidebar.classList.add('open');
-  if (drawerOverlay) drawerOverlay.classList.add('active');
+  if (adminSidebar) adminSidebar.classList.add('open');
+  if (drawerOverlay) {
+    drawerOverlay.classList.add('open');
+    drawerOverlay.classList.add('active');
+  }
   document.body.classList.add('drawer-open');
 }
 
 function closeDrawer() {
-  if (adminHamburger) adminHamburger.classList.remove('open');
-  if (dashboardSidebar) dashboardSidebar.classList.remove('open');
-  if (drawerOverlay) drawerOverlay.classList.remove('active');
+  if (adminSidebar) adminSidebar.classList.remove('open');
+  if (drawerOverlay) {
+    drawerOverlay.classList.remove('open');
+    drawerOverlay.classList.remove('active');
+  }
   document.body.classList.remove('drawer-open');
 }
 
-if (adminHamburger) {
-  adminHamburger.addEventListener('click', (e) => {
+if (mobileDrawerBtn) {
+  mobileDrawerBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    const isOpen = dashboardSidebar && dashboardSidebar.classList.contains('open');
-    if (isOpen) {
+    if (adminSidebar && adminSidebar.classList.contains('open')) {
       closeDrawer();
     } else {
       openDrawer();
@@ -525,6 +530,16 @@ if (drawerOverlay) {
 
 if (drawerCloseBtn) {
   drawerCloseBtn.addEventListener('click', closeDrawer);
+}
+
+// When ANY navigation button inside #adminSidebar is clicked, immediately remove the .open class
+if (adminSidebar) {
+  const sidebarButtons = adminSidebar.querySelectorAll('.sidebar-tab, button');
+  sidebarButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      closeDrawer();
+    });
+  });
 }
 
 // ==============================================================================
