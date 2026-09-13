@@ -196,6 +196,20 @@ function initRealTimeContent() {
         if (footerCopy && contact.copyright) footerCopy.textContent = contact.copyright;
         if (footerBrand && hero.name) footerBrand.textContent = hero.name;
 
+        // 7. Footer Social Media Links Binding
+        const social = contact.social || data.social || {};
+        const socialGithub = document.getElementById('footer-social-github');
+        const socialInstagram = document.getElementById('footer-social-instagram');
+        const socialFacebook = document.getElementById('footer-social-facebook');
+        const socialLinkedin = document.getElementById('footer-social-linkedin');
+        const socialTelegram = document.getElementById('footer-social-telegram');
+
+        if (socialGithub && social.github) socialGithub.href = social.github;
+        if (socialInstagram && social.instagram) socialInstagram.href = social.instagram;
+        if (socialFacebook && social.facebook) socialFacebook.href = social.facebook;
+        if (socialLinkedin && social.linkedin) socialLinkedin.href = social.linkedin;
+        if (socialTelegram && social.telegram) socialTelegram.href = social.telegram;
+
         // Refresh AOS layout if available
         if (typeof AOS !== 'undefined' && AOS.refresh) {
           AOS.refresh();

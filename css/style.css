@@ -1543,9 +1543,11 @@ html[dir="ltr"] .close-modal {
 }
 
 .social-circle-btn:hover {
-  background-color: var(--primary);
-  border-color: var(--primary);
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #ffffff;
   transform: translateY(-3px);
+  box-shadow: 0 4px 14px var(--primary-glow);
 }
 
 .back-to-top-btn {

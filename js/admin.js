@@ -161,7 +161,21 @@ const defaultSiteData = {
     phone: "+964 773 2640262",
     email: "Hemin.Sherko@gmail.com",
     address: "قەزای کەلار - پارێزگای سلێمانی - هەرێمی کوردستان",
-    copyright: "هەموو مافەکان پارێزراون"
+    copyright: "هەموو مافەکان پارێزراون",
+    social: {
+      github: "https://github.com/heminsherko",
+      instagram: "https://instagram.com/heminsherko",
+      facebook: "https://facebook.com/hemin.sherko1",
+      linkedin: "https://www.linkedin.com/in/heminsherko1998/",
+      telegram: "https://t.me/heminsherko"
+    }
+  },
+  social: {
+    github: "https://github.com/heminsherko",
+    instagram: "https://instagram.com/heminsherko",
+    facebook: "https://facebook.com/hemin.sherko1",
+    linkedin: "https://www.linkedin.com/in/heminsherko1998/",
+    telegram: "https://t.me/heminsherko"
   },
   visibility: {
     hero: true,
@@ -549,7 +563,18 @@ async function loadAllCMSData() {
         services: remoteData.services && remoteData.services.length ? remoteData.services : defaultSiteData.services,
         portfolio: remoteData.portfolio && remoteData.portfolio.length ? remoteData.portfolio : defaultSiteData.portfolio,
         testimonials: remoteData.testimonials && remoteData.testimonials.length ? remoteData.testimonials : defaultSiteData.testimonials,
-        contact: { ...defaultSiteData.contact, ...(remoteData.contact || {}) },
+        contact: {
+          ...defaultSiteData.contact,
+          ...(remoteData.contact || {}),
+          social: {
+            ...defaultSiteData.contact.social,
+            ...(remoteData.contact?.social || remoteData.social || {})
+          }
+        },
+        social: {
+          ...defaultSiteData.social,
+          ...(remoteData.social || remoteData.contact?.social || {})
+        },
         visibility: { ...defaultSiteData.visibility, ...(remoteData.visibility || {}) }
       };
 
@@ -644,6 +669,14 @@ function populateFormWithData(data) {
   setInputValue('contact-email', data.contact?.email);
   setInputValue('contact-address', data.contact?.address);
   setInputValue('footer-copyright', data.contact?.copyright);
+
+  // Social Media Links
+  const socialData = data.contact?.social || data.social || {};
+  setInputValue('social-github', socialData.github || defaultSiteData.contact.social.github);
+  setInputValue('social-instagram', socialData.instagram || defaultSiteData.contact.social.instagram);
+  setInputValue('social-facebook', socialData.facebook || defaultSiteData.contact.social.facebook);
+  setInputValue('social-linkedin', socialData.linkedin || defaultSiteData.contact.social.linkedin);
+  setInputValue('social-telegram', socialData.telegram || defaultSiteData.contact.social.telegram);
 }
 
 function setInputValue(elementId, value) {
@@ -674,6 +707,15 @@ async function saveAllCMSData() {
     const el = document.getElementById(`toggle-${secName}`) || document.getElementById(`toggle-overview-${secName}`);
     visibility[secName] = el ? el.checked : true;
   });
+
+  // Extract social media links
+  const socialLinks = {
+    github: getInputValue('social-github') || "https://github.com/heminsherko",
+    instagram: getInputValue('social-instagram') || "https://instagram.com/heminsherko",
+    facebook: getInputValue('social-facebook') || "https://facebook.com/hemin.sherko1",
+    linkedin: getInputValue('social-linkedin') || "https://www.linkedin.com/in/heminsherko1998/",
+    telegram: getInputValue('social-telegram') || "https://t.me/heminsherko"
+  };
 
   // Extract all fields into the complete structured JSON object
   const fullData = {
@@ -719,8 +761,10 @@ async function saveAllCMSData() {
       phone: getInputValue('contact-phone'),
       email: getInputValue('contact-email'),
       address: getInputValue('contact-address'),
-      copyright: getInputValue('footer-copyright')
+      copyright: getInputValue('footer-copyright'),
+      social: socialLinks
     },
+    social: socialLinks,
     // Backwards compatibility roots for general consumers:
     heroTitle: getInputValue('hero-title'),
     aboutText: getInputValue('about-bio'),
