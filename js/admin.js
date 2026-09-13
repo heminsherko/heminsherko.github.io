@@ -161,8 +161,81 @@ const defaultSiteData = {
     email: "Hemin.Sherko@gmail.com",
     address: "قەزای کەلار - پارێزگای سلێمانی - هەرێمی کوردستان",
     copyright: "هەموو مافەکان پارێزراون"
+  },
+  visibility: {
+    hero: true,
+    about: true,
+    services: true,
+    portfolio: true,
+    testimonials: true,
+    contact: true
   }
 };
+
+// ==============================================================================
+// SECTION VISIBILITY TOGGLES CONTROLLER
+// ==============================================================================
+const SECTION_KEYS = ['hero', 'about', 'services', 'portfolio', 'testimonials', 'contact'];
+
+/**
+ * Updates status label text and visual class for a section toggle
+ */
+function updateToggleStatusUI(secName, isChecked) {
+  const statusEls = [
+    document.getElementById(`status-${secName}`),
+    document.getElementById(`status-overview-${secName}`)
+  ];
+  const activeLabel = "چالاکە (پیشاندراوە)";
+  const hiddenLabel = "کوژاوەتەوە (شاراوە)";
+
+  statusEls.forEach(el => {
+    if (!el) return;
+    el.textContent = isChecked ? activeLabel : hiddenLabel;
+    if (isChecked) {
+      el.classList.remove('status-hidden');
+    } else {
+      el.classList.add('status-hidden');
+    }
+  });
+}
+
+/**
+ * Sets checked state on both overview and in-section checkboxes and updates UI
+ */
+function setSectionVisibility(secName, isChecked) {
+  const toggleSection = document.getElementById(`toggle-${secName}`);
+  const toggleOverview = document.getElementById(`toggle-overview-${secName}`);
+
+  if (toggleSection) toggleSection.checked = isChecked;
+  if (toggleOverview) toggleOverview.checked = isChecked;
+
+  updateToggleStatusUI(secName, isChecked);
+}
+
+/**
+ * Attaches change listeners to synchronize overview toggles with in-section toggles
+ */
+function initToggleListeners() {
+  SECTION_KEYS.forEach(secName => {
+    const toggleSection = document.getElementById(`toggle-${secName}`);
+    const toggleOverview = document.getElementById(`toggle-overview-${secName}`);
+
+    if (toggleSection) {
+      toggleSection.addEventListener('change', (e) => {
+        setSectionVisibility(secName, e.target.checked);
+      });
+    }
+
+    if (toggleOverview) {
+      toggleOverview.addEventListener('change', (e) => {
+        setSectionVisibility(secName, e.target.checked);
+      });
+    }
+  });
+}
+
+// Initialize toggle listeners on load
+initToggleListeners();
 
 // ==============================================================================
 // TAB NAVIGATION LOGIC
@@ -179,6 +252,13 @@ sidebarTabs.forEach(tab => {
 
     tab.classList.add('active');
     tab.setAttribute('aria-selected', 'true');
+
+    // Smoothly scroll active tab into view in horizontal mobile pill bar
+    try {
+      tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    } catch (e) {
+      // Ignore scroll error if unsupported
+    }
 
     const targetPanel = document.getElementById(targetTabId);
     if (targetPanel) {
@@ -285,7 +365,8 @@ async function loadAllCMSData() {
         services: remoteData.services && remoteData.services.length ? remoteData.services : defaultSiteData.services,
         portfolio: remoteData.portfolio && remoteData.portfolio.length ? remoteData.portfolio : defaultSiteData.portfolio,
         testimonials: remoteData.testimonials && remoteData.testimonials.length ? remoteData.testimonials : defaultSiteData.testimonials,
-        contact: { ...defaultSiteData.contact, ...(remoteData.contact || {}) }
+        contact: { ...defaultSiteData.contact, ...(remoteData.contact || {}) },
+        visibility: { ...defaultSiteData.visibility, ...(remoteData.visibility || {}) }
       };
 
       // Backwards compatibility fallbacks
@@ -308,6 +389,13 @@ async function loadAllCMSData() {
  * Fills all inputs and textareas across all CMS tabs with data
  */
 function populateFormWithData(data) {
+  // 0. Section Visibility Controls
+  const visibility = data.visibility || {};
+  SECTION_KEYS.forEach(secName => {
+    const isVisible = visibility[secName] !== false; // Default true if unspecified
+    setSectionVisibility(secName, isVisible);
+  });
+
   // 1. Hero Section
   setInputValue('hero-greeting', data.hero?.greeting);
   setInputValue('hero-name', data.hero?.name);
@@ -375,8 +463,16 @@ async function saveAllCMSData() {
   setButtonLoading(saveBottomBtn, true, "خەریکی سەیڤکردنە...");
   updateSyncBadge("خەریکی پاشەکەوتکردنە...", false);
 
+  // Extract section visibility states
+  const visibility = {};
+  SECTION_KEYS.forEach(secName => {
+    const el = document.getElementById(`toggle-${secName}`) || document.getElementById(`toggle-overview-${secName}`);
+    visibility[secName] = el ? el.checked : true;
+  });
+
   // Extract all fields into the complete structured JSON object
   const fullData = {
+    visibility,
     hero: {
       greeting: getInputValue('hero-greeting'),
       name: getInputValue('hero-name'),

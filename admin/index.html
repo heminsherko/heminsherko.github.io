@@ -1,8 +1,12 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <title>داشبۆردی بەڕێوەبردن | هێمن شێرکۆ</title>
   
   <!-- Favicon -->
@@ -163,6 +167,15 @@
 
           <!-- CMS Navigation Tabs -->
           <nav class="sidebar-links" role="tablist">
+            <button type="button" class="sidebar-tab" data-tab="tab-control" role="tab" aria-selected="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="3" y1="9" x2="21" y2="9"></line>
+                <line x1="9" y1="21" x2="9" y2="9"></line>
+              </svg>
+              <span>کۆنترۆڵی بەشەکان</span>
+            </button>
+
             <button type="button" class="sidebar-tab active" data-tab="tab-hero" role="tab" aria-selected="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
@@ -226,6 +239,159 @@
       <main class="dashboard-content">
         <form id="cms-form" class="cms-form">
 
+          <!-- ================= TAB: SECTION MANAGER (CONTROL) ================= -->
+          <section id="tab-control" class="tab-panel" role="tabpanel">
+            <div class="glass-panel content-card">
+              <div class="section-header">
+                <div>
+                  <h2>کۆنترۆڵی بەشەکان (Section Manager)</h2>
+                  <p class="section-desc">کۆنترۆڵکردنی دۆخی چالاکبوون (On/Off) و شاردنەوەی بەشەکانی ماڵپەڕ و بەستەرەکانی مێنیوی سەرەکی لە کاتی ڕاستەقینەدا.</p>
+                </div>
+              </div>
+
+              <div class="control-overview-grid">
+                <!-- 1. Hero -->
+                <div class="control-item-card">
+                  <div class="control-item-header">
+                    <div class="control-item-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="control-item-title">بەشی سەرەتا (Hero)</div>
+                      <div class="control-item-desc">پێشوازی، وێنەی سەرەکی، ناو و تایتڵی گەورە</div>
+                    </div>
+                  </div>
+                  <div class="control-item-bottom">
+                    <label class="switch">
+                      <input type="checkbox" id="toggle-overview-hero" checked>
+                      <span class="slider"></span>
+                    </label>
+                    <span class="toggle-status-text" id="status-overview-hero">چالاکە (پیشاندراوە)</span>
+                  </div>
+                </div>
+
+                <!-- 2. About -->
+                <div class="control-item-card">
+                  <div class="control-item-header">
+                    <div class="control-item-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="control-item-title">دەربارەی من و شارەزاییەکان (About)</div>
+                      <div class="control-item-desc">پێناسەی کەسی، وێنە و باڕەکانی ڕێژەی لێهاتوویی</div>
+                    </div>
+                  </div>
+                  <div class="control-item-bottom">
+                    <label class="switch">
+                      <input type="checkbox" id="toggle-overview-about" checked>
+                      <span class="slider"></span>
+                    </label>
+                    <span class="toggle-status-text" id="status-overview-about">چالاکە (پیشاندراوە)</span>
+                  </div>
+                </div>
+
+                <!-- 3. Services -->
+                <div class="control-item-card">
+                  <div class="control-item-header">
+                    <div class="control-item-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="control-item-title">خزمەتگوزارییەکان (Services)</div>
+                      <div class="control-item-desc">کارتەکانی خزمەتگوزاری و چارەسەرە تەکنیکییەکان</div>
+                    </div>
+                  </div>
+                  <div class="control-item-bottom">
+                    <label class="switch">
+                      <input type="checkbox" id="toggle-overview-services" checked>
+                      <span class="slider"></span>
+                    </label>
+                    <span class="toggle-status-text" id="status-overview-services">چالاکە (پیشاندراوە)</span>
+                  </div>
+                </div>
+
+                <!-- 4. Portfolio -->
+                <div class="control-item-card">
+                  <div class="control-item-header">
+                    <div class="control-item-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                        <polyline points="21 15 16 10 5 21"></polyline>
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="control-item-title">کارەکانم (Portfolio)</div>
+                      <div class="control-item-desc">نموونەی پڕۆژە هەڵبژێردراوەکان و کارتەکان</div>
+                    </div>
+                  </div>
+                  <div class="control-item-bottom">
+                    <label class="switch">
+                      <input type="checkbox" id="toggle-overview-portfolio" checked>
+                      <span class="slider"></span>
+                    </label>
+                    <span class="toggle-status-text" id="status-overview-portfolio">چالاکە (پیشاندراوە)</span>
+                  </div>
+                </div>
+
+                <!-- 5. Testimonials -->
+                <div class="control-item-card">
+                  <div class="control-item-header">
+                    <div class="control-item-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="control-item-title">ڕای هاوکاران (Testimonials)</div>
+                      <div class="control-item-desc">وتە، ڕاسپاردە و پێگەی کڕیاران و هاوبەشەکان</div>
+                    </div>
+                  </div>
+                  <div class="control-item-bottom">
+                    <label class="switch">
+                      <input type="checkbox" id="toggle-overview-testimonials" checked>
+                      <span class="slider"></span>
+                    </label>
+                    <span class="toggle-status-text" id="status-overview-testimonials">چالاکە (پیشاندراوە)</span>
+                  </div>
+                </div>
+
+                <!-- 6. Contact -->
+                <div class="control-item-card">
+                  <div class="control-item-header">
+                    <div class="control-item-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="control-item-title">پەیوەندی و فوتەر (Contact & Footer)</div>
+                      <div class="control-item-desc">ژمارە، ئیمەیڵ، ناونیشان و مافی لەبەرگرتنەوە</div>
+                    </div>
+                  </div>
+                  <div class="control-item-bottom">
+                    <label class="switch">
+                      <input type="checkbox" id="toggle-overview-contact" checked>
+                      <span class="slider"></span>
+                    </label>
+                    <span class="toggle-status-text" id="status-overview-contact">چالاکە (پیشاندراوە)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           <!-- ================= TAB 1: HERO SECTION ================= -->
           <section id="tab-hero" class="tab-panel active" role="tabpanel">
             <div class="glass-panel content-card">
@@ -234,6 +400,16 @@
                   <h2>دەستکاریکردنی بەشی سەرەتا (Hero Section)</h2>
                   <p class="section-desc">سڵاوکردن، ناوی تەواو، تایتڵی پیشەیی، دەقی ناساندنی سەرەکی و وێنەی کەسی.</p>
                 </div>
+              </div>
+
+              <!-- Prominent Section Visibility Toggle Switch -->
+              <div class="section-toggle-wrapper">
+                <span class="toggle-label">دۆخی ئەم بەشە لەسەر ماڵپەڕەکە:</span>
+                <label class="switch">
+                  <input type="checkbox" id="toggle-hero" checked>
+                  <span class="slider"></span>
+                </label>
+                <span class="toggle-status-text" id="status-hero">چالاکە (پیشاندراوە)</span>
               </div>
 
               <div class="form-grid">
@@ -273,6 +449,16 @@
                   <h2>دەربارەی من و ئاستی شارەزاییەکان (About & Skills)</h2>
                   <p class="section-desc">دەقی تەواوی دەربارەی من لەگەڵ چوار پرۆگرێس باڕی شارەزایی تەکنیکی.</p>
                 </div>
+              </div>
+
+              <!-- Prominent Section Visibility Toggle Switch -->
+              <div class="section-toggle-wrapper">
+                <span class="toggle-label">دۆخی ئەم بەشە لەسەر ماڵپەڕەکە:</span>
+                <label class="switch">
+                  <input type="checkbox" id="toggle-about" checked>
+                  <span class="slider"></span>
+                </label>
+                <span class="toggle-status-text" id="status-about">چالاکە (پیشاندراوە)</span>
               </div>
 
               <div class="form-group full-width">
@@ -352,6 +538,16 @@
                   <h2>خزمەتگوزارییەکان (Services)</h2>
                   <p class="section-desc">سەردێڕ، ڕوونکردنەوە، و ئایکۆنی ٤ کارتی خزمەتگوزارییەکان.</p>
                 </div>
+              </div>
+
+              <!-- Prominent Section Visibility Toggle Switch -->
+              <div class="section-toggle-wrapper">
+                <span class="toggle-label">دۆخی ئەم بەشە لەسەر ماڵپەڕەکە:</span>
+                <label class="switch">
+                  <input type="checkbox" id="toggle-services" checked>
+                  <span class="slider"></span>
+                </label>
+                <span class="toggle-status-text" id="status-services">چالاکە (پیشاندراوە)</span>
               </div>
 
               <div class="items-grid-2col">
@@ -434,6 +630,16 @@
                   <h2>کارەکانم (پڕۆژەکان - Portfolio)</h2>
                   <p class="section-desc">بەڕێوەبردنی کارتی پڕۆژە هەڵبژێردراوەکان، کاتەگۆری، وێنە و پێناسەکان.</p>
                 </div>
+              </div>
+
+              <!-- Prominent Section Visibility Toggle Switch -->
+              <div class="section-toggle-wrapper">
+                <span class="toggle-label">دۆخی ئەم بەشە لەسەر ماڵپەڕەکە:</span>
+                <label class="switch">
+                  <input type="checkbox" id="toggle-portfolio" checked>
+                  <span class="slider"></span>
+                </label>
+                <span class="toggle-status-text" id="status-portfolio">چالاکە (پیشاندراوە)</span>
               </div>
 
               <div class="items-grid-2col">
@@ -576,6 +782,16 @@
                 </div>
               </div>
 
+              <!-- Prominent Section Visibility Toggle Switch -->
+              <div class="section-toggle-wrapper">
+                <span class="toggle-label">دۆخی ئەم بەشە لەسەر ماڵپەڕەکە:</span>
+                <label class="switch">
+                  <input type="checkbox" id="toggle-testimonials" checked>
+                  <span class="slider"></span>
+                </label>
+                <span class="toggle-status-text" id="status-testimonials">چالاکە (پیشاندراوە)</span>
+              </div>
+
               <div class="items-grid-1col">
                 <!-- Testimonial 1 -->
                 <div class="card-item-box">
@@ -645,6 +861,16 @@
                   <h2>پەیوەندی و فوتەری ماڵپەڕ (Contact & Footer)</h2>
                   <p class="section-desc">ژمارەی پەیوەندی، ئیمەیڵ، ناونیشانی شوێن، و دەقی مافی لەبەرگرتنەوە.</p>
                 </div>
+              </div>
+
+              <!-- Prominent Section Visibility Toggle Switch -->
+              <div class="section-toggle-wrapper">
+                <span class="toggle-label">دۆخی ئەم بەشە لەسەر ماڵپەڕەکە:</span>
+                <label class="switch">
+                  <input type="checkbox" id="toggle-contact" checked>
+                  <span class="slider"></span>
+                </label>
+                <span class="toggle-status-text" id="status-contact">چالاکە (پیشاندراوە)</span>
               </div>
 
               <div class="form-grid">

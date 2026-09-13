@@ -42,6 +42,25 @@ function initRealTimeContent() {
         const data = docSnap.data();
         console.log("Real-time update received from Firestore:", data);
 
+        // 0. Dynamic Section Visibility Control (On/Off)
+        const visibility = data.visibility || {};
+        const sectionsList = ['hero', 'about', 'services', 'portfolio', 'testimonials', 'contact'];
+
+        sectionsList.forEach(secName => {
+          // Visible by default unless explicitly false
+          const isVisible = visibility[secName] !== false;
+          const secEl = document.getElementById(secName);
+          const navItem = document.getElementById(`nav-item-${secName}`) || 
+                          document.querySelector(`.nav-list a[href="#${secName}"]`)?.closest('.nav-item');
+
+          if (secEl) {
+            secEl.style.display = isVisible ? '' : 'none';
+          }
+          if (navItem) {
+            navItem.style.display = isVisible ? '' : 'none';
+          }
+        });
+
         // 1. Hero Section Binding
         const hero = data.hero || {};
         const heroGreetingPrefix = document.getElementById('hero-greeting-prefix');
