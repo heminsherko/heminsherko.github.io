@@ -3,6 +3,7 @@
   src: url('../assets/fonts/rudaw.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 /* ==========================================================================
@@ -324,8 +325,8 @@ img, svg {
   width: 100%;
   height: var(--header-height);
   background-color: var(--header-bg);
-  backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-color);
   z-index: 1000;
   transition: background-color var(--transition-base), box-shadow var(--transition-base);
@@ -499,8 +500,8 @@ img, svg {
   flex-direction: column;
   gap: 4px;
   z-index: 1050;
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   animation: dropdownFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -1293,8 +1294,8 @@ img, svg {
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -1686,8 +1687,8 @@ html[dir="ltr"] .close-modal {
     right: 0;
     width: 100%;
     background: var(--header-bg);
-    backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border-color);
     box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
     padding: 20px 24px;
@@ -1764,6 +1765,10 @@ html[dir="ltr"] .close-modal {
     padding-top: calc(var(--header-height) + 25px);
     padding-bottom: 50px;
     min-height: auto;
+  }
+
+  #particles-js {
+    display: none;
   }
 
   .hero-container {
@@ -2027,8 +2032,8 @@ html[dir="ltr"] .floating-exp-badge {
   align-items: center;
   justify-content: center;
   box-shadow: 0 8px 24px var(--primary-glow);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   opacity: 0;
   visibility: hidden;
   transform: translateY(20px);

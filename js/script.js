@@ -53,8 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Footer & Misc
   const currentYearSpan = document.getElementById('current-year');
 
-  // Fine pointer media query detection for mouse/touch safety
+  // Media query detections for mobile and fine pointer safety
   const isFinePointer = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer: fine)').matches;
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
   // ============================================================================
   // 2. FOOTER COPYRIGHT YEAR
@@ -542,9 +543,9 @@ document.addEventListener('DOMContentLoaded', () => {
           console.warn('AOS library refresh failed:', error);
         }
 
-        // Safe VanillaTilt re-initialization
+        // Safe VanillaTilt re-initialization (Desktop only)
         try {
-          if (typeof VanillaTilt !== 'undefined' && VanillaTilt.init) {
+          if (!isMobile && typeof VanillaTilt !== 'undefined' && VanillaTilt.init) {
             setTimeout(() => {
               const cardsToTilt = document.querySelectorAll(".service-card, .portfolio-card");
               if (cardsToTilt && cardsToTilt.length > 0) {
@@ -700,9 +701,9 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn('AOS library failed to load or initialize:', error);
   }
 
-  // VanillaTilt 3D Effect
+  // VanillaTilt 3D Effect (Desktop only)
   try {
-    if (typeof VanillaTilt !== 'undefined' && VanillaTilt.init) {
+    if (!isMobile && typeof VanillaTilt !== 'undefined' && VanillaTilt.init) {
       const cards = document.querySelectorAll(".service-card, .portfolio-card");
       if (cards && cards.length > 0) {
         VanillaTilt.init(cards, {
@@ -718,9 +719,9 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn('VanillaTilt library failed to load or initialize:', error);
   }
 
-  // Particles.js Interactive Network
+  // Particles.js Interactive Network (Desktop only)
   try {
-    if (typeof particlesJS !== 'undefined' && document.getElementById('particles-js')) {
+    if (!isMobile && typeof particlesJS !== 'undefined' && document.getElementById('particles-js')) {
       particlesJS("particles-js", {
         "particles": {
           "number": { "value": 70 },
