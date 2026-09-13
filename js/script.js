@@ -5,8 +5,60 @@
  * ==============================================================================
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+// Firebase Modular Web SDK v10 CDN Imports
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+
+// Firebase Configuration (Matching admin credentials)
+const firebaseConfig = {
+  apiKey: "AIzaSyDZjxwqKKddb2L2XLR7obZmjlXDYbl6p48",
+  authDomain: "hemin-portfolio.firebaseapp.com",
+  projectId: "hemin-portfolio",
+  storageBucket: "hemin-portfolio.firebasestorage.app",
+  messagingSenderId: "52349564982",
+  appId: "1:52349564982:web:c09fbe8747b8422572c097"
+};
+
+let db = null;
+try {
+  const app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+} catch (e) {
+  console.warn("Firebase initialization skipped or failed:", e);
+}
+
+/**
+ * Fetch and update dynamic content (heroTitle, aboutText) from Firestore (siteData/general).
+ * Wrapped in try/catch to ensure resilient fallback if offline or delayed.
+ */
+async function loadDynamicContent() {
+  try {
+    if (!db) return;
+    const docRef = doc(db, "siteData", "general");
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      const heroTitleElem = document.getElementById('hero-title');
+      const aboutTextElem = document.getElementById('about-text');
+
+      if (heroTitleElem && data.heroTitle) {
+        heroTitleElem.textContent = data.heroTitle;
+      }
+      if (aboutTextElem && data.aboutText) {
+        aboutTextElem.textContent = data.aboutText;
+      }
+    }
+  } catch (error) {
+    console.warn("Could not load dynamic Firestore content, using static fallback:", error);
+  }
+}
+
+function initializePortfolio() {
   'use strict';
+
+  // Asynchronously fetch and render dynamic Firestore content
+  loadDynamicContent();
 
   // ============================================================================
   // 1. DOM ELEMENT SELECTIONS (GROUPED & NULL-SAFE)
@@ -689,7 +741,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================================================================
-  // 13. THIRD-PARTY LIBRARIES (SAFELY INITIALIZED WITH TRY-CATCH)
+  // 13. SECURE CONTACT / BOT-SCRAPING PROTECTION
+  // ============================================================================
+  const secureContacts = document.querySelectorAll('.secure-contact');
+  secureContacts.forEach(contact => {
+    contact.addEventListener('click', (e) => {
+      e.preventDefault();
+      const type = contact.getAttribute('data-type');
+      const part1 = contact.getAttribute('data-part1') || '';
+      const part2 = contact.getAttribute('data-part2') || '';
+
+      if (type === 'email') {
+        window.location.href = `mailto:${part1}@${part2}`;
+      } else if (type === 'whatsapp') {
+        window.open(`https://wa.me/${part1}${part2}`, '_blank', 'noopener,noreferrer');
+      }
+    });
+  });
+
+  // ============================================================================
+  // 14. THIRD-PARTY LIBRARIES (SAFELY INITIALIZED WITH TRY-CATCH)
   // ============================================================================
 
   // AOS (Animate On Scroll)
@@ -777,10 +848,17 @@ document.addEventListener('DOMContentLoaded', () => {
   } catch (error) {
     console.warn('Swiper library failed to load or initialize:', error);
   }
-});
+}
+
+// Execute portfolio initialization safely across document lifecycle states
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializePortfolio);
+} else {
+  initializePortfolio();
+}
 
 // ==============================================================================
-// 14. GLOBAL GOOGLE TRANSLATE CALLBACK (SAFEGUARDED)
+// 15. GLOBAL GOOGLE TRANSLATE CALLBACK (SAFEGUARDED)
 // ==============================================================================
 window.googleTranslateElementInit = function() {
   try {

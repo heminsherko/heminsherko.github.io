@@ -1,0 +1,4 @@
+Contact: mailto:Hemin.Sherko@gmail.com
+Preferred-Languages: en, ku, ar
+Policy: This is the personal portfolio of Hemin Sherko (Systems Architect). If you find any security vulnerabilities, please report them via email.
+

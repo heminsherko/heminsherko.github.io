@@ -6,9 +6,14 @@
   <title>هێمن شێرکۆ | ئەندازیاری سیستەم</title>
 
   <!-- Security Headers & Content Security Policy (Bank-Level Security) -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://translate.google.com https://translate.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com https://cdn.jsdelivr.net https://translate.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://translate.googleapis.com; object-src 'none'; base-uri 'self'; form-action 'self';" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://translate.google.com https://translate.googleapis.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com https://cdn.jsdelivr.net https://translate.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://translate.googleapis.com https://*.googleapis.com https://*.firebaseio.com; object-src 'none'; base-uri 'self'; form-action 'self';" />
+  <meta http-equiv="Permissions-Policy" content="accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()">
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+
+  <!-- Anti-Clickjacking (Frame-Busting Protection) -->
+  <style id="antiClickjack">body{display:none !important;}</style>
+  <script type="text/javascript"> if (self === top) { var antiClickjack = document.getElementById("antiClickjack"); antiClickjack.parentNode.removeChild(antiClickjack); } else { top.location = self.location; } </script>
 
   <!-- Favicon -->
   <link rel="icon" href="./assets/images/logo.svg" type="image/svg+xml" />
@@ -149,8 +154,8 @@
           </svg>
         </button>
 
-        <!-- دوگمەی سەرەکی CTA (بەستەری ڕاستەوخۆی واتسئەپ) -->
-        <a href="https://wa.me/9647732640262" target="_blank" rel="noopener noreferrer" class="btn btn-primary nav-cta" aria-label="پەیوەندیکردن لە ڕێگەی واتسئەپ | Chat on WhatsApp">با قسە بکەین</a>
+        <!-- دوگمەی سەرەکی CTA (بەستەری ڕاستەوخۆی واتسئەپ - پارێزراو دژی بۆت) -->
+        <a href="#" class="btn btn-primary nav-cta secure-contact" data-type="whatsapp" data-part1="964" data-part2="7732640262" target="_blank" rel="noopener noreferrer" aria-label="پەیوەندیکردن لە ڕێگەی واتسئەپ | Chat on WhatsApp">با قسە بکەین</a>
       </div>
 
     </div>
@@ -171,7 +176,7 @@
           </div>
 
           <!-- تایتڵی زەبەلاح بە ڕەنگی شینی سەرەکی -->
-          <h1 class="hero-title-massive">
+          <h1 class="hero-title-massive" id="hero-title">
             ئەندازیاری سیستەم
           </h1>
 
@@ -249,7 +254,7 @@
             <h2 class="about-lead-title" data-aos="fade-up">
               ئەزموونێکی دەوڵەمەند لە بونیاتنانی چارەسەری تەکنیکی بەهێز
             </h2>
-            <p class="about-text" data-aos="fade-up">
+            <p class="about-text" data-aos="fade-up" id="about-text">
               من ئەندازیاری سیستەمم و خاوەنی ئەزموونی چەندین ساڵەم لە دیزاینکردنی تەلارسازیی پڕۆگرامینگ، بەڕێوەبردنی سێرڤەر و بەستنەوەی مایکڕۆسێرڤسەکان. سەرنجم لەسەر کەمکردنەوەی خەرجییەکان، خێراترکردنی وەڵامدانەوەی سیستەم و گەیاندنی بەرزترین ئاستی سیکیوریتییە.
             </p>
 
@@ -572,7 +577,7 @@
             <div class="info-meta">
               <span class="info-title">پەیوەندی تەلەفۆنی / واتسئەپ</span>
               <span class="info-value phone-value">
-                <a href="https://wa.me/9647732640262" target="_blank" rel="noopener noreferrer" aria-label="پەیوەندیکردن لە ڕێگەی واتسئەپ: +964 773 2640262 | Chat on WhatsApp">+964 773 2640262</a>
+                <a href="#" class="secure-contact" data-type="whatsapp" data-part1="964" data-part2="7732640262" target="_blank" rel="noopener noreferrer" aria-label="پەیوەندیکردن لە ڕێگەی واتسئەپ: +964 773 2640262 | Chat on WhatsApp">+964 773 2640262</a>
               </span>
             </div>
           </div>
@@ -588,7 +593,7 @@
             <div class="info-meta">
               <span class="info-title">ئیمەیڵی فەرمی</span>
               <span class="info-value">
-                <a href="mailto:Hemin.Sherko@gmail.com" aria-label="ناردنی ئیمەیڵ بۆ Hemin.Sherko@gmail.com | Send Email">Hemin.Sherko@gmail.com</a>
+                <a href="#" class="secure-contact" data-type="email" data-part1="Hemin.Sherko" data-part2="gmail.com" aria-label="ناردنی ئیمەیڵ بۆ Hemin.Sherko@gmail.com | Send Email">Hemin.Sherko@gmail.com</a>
               </span>
             </div>
           </div>
@@ -696,6 +701,6 @@
   <!-- Particles.js (Particle Network Background) -->
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer crossorigin="anonymous"></script>
   <!-- Core Application Script -->
-  <script src="./js/script.js" defer></script>
+  <script type="module" src="./js/script.js"></script>
 </body>
 </html>
