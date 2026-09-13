@@ -71,7 +71,8 @@ const defaultSiteData = {
   },
   about: {
     leadTitle: "ئەزموونێکی دەوڵەمەند لە بونیاتنانی چارەسەری تەکنیکی بەهێز",
-    bio: "من ئەندازیاری سیستەمم و خاوەنی ئەزموونی چەندین ساڵەم لە دیزاینکردنی تەلارسازیی پڕۆگرامینگ، بەڕێوەبردنی سێرڤەر و بەستنەوەی مایکڕۆسێرڤسەکان. سەرنجم لەسەر کەمکردنەوەی خەرجییەکان، خێراترکردنی وەڵامدانەوەی سیستەم و گەیاندنی بەرزترین ئاستی سیکیوریتییە."
+    bio: "من ئەندازیاری سیستەمم و خاوەنی ئەزموونی چەندین ساڵەم لە دیزاینکردنی تەلارسازیی پڕۆگرامینگ، بەڕێوەبردنی سێرڤەر و بەستنەوەی مایکڕۆسێرڤسەکان. سەرنجم لەسەر کەمکردنەوەی خەرجییەکان، خێراترکردنی وەڵامدانەوەی سیستەم و گەیاندنی بەرزترین ئاستی سیکیوریتییە.",
+    image: "./assets/images/my-photo2.png"
   },
   skills: [
     { name: "نەخشەسازی و تەلارسازیی سیستەم", percentage: 95 },
@@ -238,6 +239,189 @@ function initToggleListeners() {
 initToggleListeners();
 
 // ==============================================================================
+// CLIENT-SIDE IMAGE COMPRESSOR & DIRECT FIRESTORE STORAGE
+// ==============================================================================
+
+/**
+ * Compresses an image client-side using an HTML5 Canvas to WebP format.
+ * Max dimension: 1000px, quality: 0.75.
+ * Shrinks 5MB-10MB mobile camera photos down to 40KB-80KB WebP Data URL.
+ * 100% Free - no Firebase Storage or Blaze billing required!
+ * @param {File} file
+ * @param {number} maxWidth
+ * @param {number} maxHeight
+ * @param {number} quality
+ * @returns {Promise<string>} Base64 Data URL string
+ */
+function compressImageToWebP(file, maxWidth = 1000, maxHeight = 1000, quality = 0.75) {
+  return new Promise((resolve, reject) => {
+    if (!file || !file.type.startsWith('image/')) {
+      reject(new Error("تکایە فایلی وێنە هەڵبژێرە."));
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error("هەڵە لە خوێندنەوەی فایل."));
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onerror = () => reject(new Error("هەڵە لە بارکردنی وێنە."));
+      img.onload = () => {
+        let width = img.width;
+        let height = img.height;
+
+        // Resize dynamically preserving aspect ratio
+        if (width > maxWidth || height > maxHeight) {
+          if (width / height > maxWidth / maxHeight) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          } else {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+
+        // Draw image onto canvas
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Convert to WebP Data URL (fall back to JPEG if WebP is unsupported)
+        let dataUrl = canvas.toDataURL('image/webp', quality);
+        if (!dataUrl.startsWith('data:image/webp')) {
+          dataUrl = canvas.toDataURL('image/jpeg', quality);
+        }
+
+        resolve(dataUrl);
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+/**
+ * Wire an image uploader component with instant client-side compression and auto-save
+ */
+function setupImageUploadHandler({ btnId, inputId, previewId, hiddenInputId, statusId, onSaved }) {
+  const btn = document.getElementById(btnId);
+  const input = document.getElementById(inputId);
+  const preview = document.getElementById(previewId);
+  const hiddenInput = document.getElementById(hiddenInputId);
+  const status = statusId ? document.getElementById(statusId) : null;
+
+  if (!btn || !input) return;
+
+  btn.addEventListener('click', () => {
+    input.click();
+  });
+
+  input.addEventListener('change', async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+
+    if (status) {
+      status.textContent = "خەریکی کەمکردنەوەی قەبارە و سەیڤکردنە...";
+      status.style.display = "inline-block";
+    }
+
+    try {
+      // 1-4. Compress to WebP Data URL
+      const dataUrl = await compressImageToWebP(file, 1000, 1000, 0.75);
+
+      // 5. Show compressed preview immediately
+      if (preview) {
+        preview.src = dataUrl;
+      }
+      if (hiddenInput) {
+        hiddenInput.value = dataUrl;
+      }
+
+      // 6. Automatically save into Firestore
+      if (onSaved) {
+        await onSaved(dataUrl);
+      }
+
+      // 7. Show Kurdish success message
+      showStatusMessage("وێنەکە بە سەرکەوتوویی کەمکرایەوە و سەیڤ کرا! 🎉", "success");
+      if (status) {
+        status.textContent = "سەیڤ کرا! (WebP)";
+        setTimeout(() => {
+          if (status) status.style.display = "none";
+        }, 3000);
+      }
+    } catch (err) {
+      console.error("Image compression error:", err);
+      showStatusMessage(`هەڵە لە کەمکردنەوەی وێنە: ${err.message}`, "error");
+      if (status) status.style.display = "none";
+    } finally {
+      input.value = ""; // Reset to allow re-selecting same file
+    }
+  });
+}
+
+function initAllImageUploaders() {
+  // Hero Image
+  setupImageUploadHandler({
+    btnId: 'hero-file-btn',
+    inputId: 'hero-file-input',
+    previewId: 'hero-preview',
+    hiddenInputId: 'hero-img',
+    statusId: 'hero-upload-status',
+    onSaved: async (dataUrl) => {
+      await setDoc(generalDocRef, {
+        hero: { image: dataUrl },
+        heroImageUrl: dataUrl,
+        updatedAt: new Date().toISOString()
+      }, { merge: true });
+    }
+  });
+
+  // About Image
+  setupImageUploadHandler({
+    btnId: 'about-file-btn',
+    inputId: 'about-file-input',
+    previewId: 'about-preview',
+    hiddenInputId: 'about-img',
+    statusId: 'about-upload-status',
+    onSaved: async (dataUrl) => {
+      await setDoc(generalDocRef, {
+        about: { image: dataUrl },
+        aboutImageUrl: dataUrl,
+        updatedAt: new Date().toISOString()
+      }, { merge: true });
+    }
+  });
+
+  // Portfolio Projects 0-5
+  for (let i = 0; i < 6; i++) {
+    setupImageUploadHandler({
+      btnId: `portfolio-file-btn-${i}`,
+      inputId: `portfolio-file-input-${i}`,
+      previewId: `portfolio-preview-${i}`,
+      hiddenInputId: `portfolio-img-${i}`,
+      onSaved: async (dataUrl) => {
+        const docSnap = await getDoc(generalDocRef);
+        if (docSnap.exists()) {
+          const remotePortfolio = docSnap.data().portfolio || [];
+          if (remotePortfolio[i]) {
+            remotePortfolio[i].image = dataUrl;
+          } else {
+            remotePortfolio[i] = { image: dataUrl };
+          }
+          await setDoc(generalDocRef, { portfolio: remotePortfolio, updatedAt: new Date().toISOString() }, { merge: true });
+        }
+      }
+    });
+  }
+}
+
+// Initialize image uploaders on load
+initAllImageUploaders();
+
+// ==============================================================================
 // TAB NAVIGATION LOGIC
 // ==============================================================================
 sidebarTabs.forEach(tab => {
@@ -372,6 +556,8 @@ async function loadAllCMSData() {
       // Backwards compatibility fallbacks
       if (remoteData.heroTitle && !remoteData.hero?.title) data.hero.title = remoteData.heroTitle;
       if (remoteData.aboutText && !remoteData.about?.bio) data.about.bio = remoteData.aboutText;
+      if (remoteData.heroImageUrl && !remoteData.hero?.image) data.hero.image = remoteData.heroImageUrl;
+      if (remoteData.aboutImageUrl && !remoteData.about?.image) data.about.image = remoteData.aboutImageUrl;
     }
 
     populateFormWithData(data);
@@ -401,11 +587,20 @@ function populateFormWithData(data) {
   setInputValue('hero-name', data.hero?.name);
   setInputValue('hero-title', data.hero?.title);
   setInputValue('hero-desc', data.hero?.description);
-  setInputValue('hero-img', data.hero?.image);
+  const heroImage = data.hero?.image || data.heroImageUrl;
+  if (heroImage) {
+    setInputValue('hero-img', heroImage);
+    setImagePreviewSrc('hero-preview', heroImage);
+  }
 
   // 2. About & Skills
   setInputValue('about-lead-title', data.about?.leadTitle);
   setInputValue('about-bio', data.about?.bio);
+  const aboutImage = data.about?.image || data.aboutImageUrl;
+  if (aboutImage) {
+    setInputValue('about-img', aboutImage);
+    setImagePreviewSrc('about-preview', aboutImage);
+  }
   if (Array.isArray(data.skills)) {
     data.skills.forEach((skill, i) => {
       setInputValue(`skill-name-${i}`, skill.name);
@@ -427,7 +622,10 @@ function populateFormWithData(data) {
     data.portfolio.forEach((proj, i) => {
       setInputValue(`portfolio-title-${i}`, proj.title);
       setInputValue(`portfolio-cat-${i}`, proj.category);
-      setInputValue(`portfolio-img-${i}`, proj.image);
+      if (proj.image) {
+        setInputValue(`portfolio-img-${i}`, proj.image);
+        setImagePreviewSrc(`portfolio-preview-${i}`, proj.image);
+      }
       setInputValue(`portfolio-desc-${i}`, proj.desc);
     });
   }
@@ -452,6 +650,13 @@ function setInputValue(elementId, value) {
   const el = document.getElementById(elementId);
   if (el && value !== undefined && value !== null) {
     el.value = value;
+  }
+}
+
+function setImagePreviewSrc(elementId, src) {
+  const el = document.getElementById(elementId);
+  if (el && src) {
+    el.src = src;
   }
 }
 
@@ -482,7 +687,8 @@ async function saveAllCMSData() {
     },
     about: {
       leadTitle: getInputValue('about-lead-title'),
-      bio: getInputValue('about-bio')
+      bio: getInputValue('about-bio'),
+      image: getInputValue('about-img')
     },
     skills: [
       { name: getInputValue('skill-name-0'), percentage: parseInt(getInputValue('skill-pct-0'), 10) || 0 },
@@ -518,6 +724,8 @@ async function saveAllCMSData() {
     // Backwards compatibility roots for general consumers:
     heroTitle: getInputValue('hero-title'),
     aboutText: getInputValue('about-bio'),
+    heroImageUrl: getInputValue('hero-img'),
+    aboutImageUrl: getInputValue('about-img'),
     updatedAt: new Date().toISOString()
   };
 

@@ -74,8 +74,9 @@ function initRealTimeContent() {
         const titleVal = hero.title || data.heroTitle;
         if (heroTitleElem && titleVal) heroTitleElem.textContent = titleVal;
         if (heroDescElem && hero.description) heroDescElem.textContent = hero.description;
-        if (heroImgElem && hero.image) {
-          heroImgElem.src = hero.image;
+        const heroImgSrc = hero.image || data.heroImageUrl;
+        if (heroImgElem && heroImgSrc) {
+          heroImgElem.src = heroImgSrc;
           if (hero.name) heroImgElem.alt = `${hero.name} - Systems Architect portrait`;
         }
 
@@ -83,10 +84,15 @@ function initRealTimeContent() {
         const about = data.about || {};
         const aboutLeadTitle = document.getElementById('about-lead-title');
         const aboutTextElem = document.getElementById('about-text');
+        const aboutImgElem = document.getElementById('about-img');
 
         if (aboutLeadTitle && about.leadTitle) aboutLeadTitle.textContent = about.leadTitle;
         const bioVal = about.bio || data.aboutText;
         if (aboutTextElem && bioVal) aboutTextElem.textContent = bioVal;
+        const aboutImgSrc = about.image || data.aboutImageUrl;
+        if (aboutImgElem && aboutImgSrc) {
+          aboutImgElem.src = aboutImgSrc;
+        }
 
         if (Array.isArray(data.skills)) {
           data.skills.forEach((skill, i) => {

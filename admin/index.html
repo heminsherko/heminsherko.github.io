@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#0d1117" />
+  <meta name="theme-color" content="#f4f7f9" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="mobile-web-app-capable" content="yes" />
   <title>داشبۆردی بەڕێوەبردن | هێمن شێرکۆ</title>
   
@@ -434,8 +434,25 @@
                 </div>
 
                 <div class="form-group full-width">
-                  <label for="hero-img">ناونیشان یان ڕێڕەوی وێنەی سەرەتا (Hero Image Path/URL)</label>
-                  <input type="text" id="hero-img" name="hero_img" class="form-control" placeholder="./assets/images/my-photo1.png" dir="ltr" required />
+                  <label for="hero-img">وێنەی سەرەتا (Hero Profile Photo)</label>
+                  <div class="image-uploader-box">
+                    <div class="preview-container">
+                      <img id="hero-preview" class="image-preview-thumb" src="../assets/images/my-photo1.png" alt="Hero Preview" />
+                    </div>
+                    <div class="uploader-controls">
+                      <button type="button" class="btn btn-upload" id="hero-file-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+                          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                          <circle cx="12" cy="13" r="4"></circle>
+                        </svg>
+                        <span>📷 هەڵبژاردنی وێنە لە مۆبایل</span>
+                      </button>
+                      <input type="file" id="hero-file-input" accept="image/*" style="display: none;" />
+                      <span class="upload-hint">کەمکردنەوەی قەبارەی وێنە بە کوالێتی بەرز (WebP) و سەیڤکردنی ڕاستەوخۆ</span>
+                      <span class="upload-progress-text" id="hero-upload-status"></span>
+                    </div>
+                  </div>
+                  <input type="hidden" id="hero-img" name="hero_img" value="./assets/images/my-photo1.png" />
                 </div>
               </div>
             </div>
@@ -469,6 +486,28 @@
               <div class="form-group full-width">
                 <label for="about-bio">دەقی تەواوی ناساندن و ژیاننامە (Bio Description)</label>
                 <textarea id="about-bio" name="about_bio" rows="6" class="form-control" placeholder="من ئەندازیاری سیستەمم و خاوەنی ئەزموونی چەندین ساڵەم..." required></textarea>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="about-img">وێنەی دەربارەی من (About Profile Photo)</label>
+                <div class="image-uploader-box">
+                  <div class="preview-container">
+                    <img id="about-preview" class="image-preview-thumb" src="../assets/images/my-photo2.png" alt="About Preview" />
+                  </div>
+                  <div class="uploader-controls">
+                    <button type="button" class="btn btn-upload" id="about-file-btn">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                        <circle cx="12" cy="13" r="4"></circle>
+                      </svg>
+                      <span>📷 هەڵبژاردنی وێنە لە مۆبایل</span>
+                    </button>
+                    <input type="file" id="about-file-input" accept="image/*" style="display: none;" />
+                    <span class="upload-hint">کەمکردنەوەی قەبارەی وێنە بە کوالێتی بەرز (WebP) و سەیڤکردنی ڕاستەوخۆ</span>
+                    <span class="upload-progress-text" id="about-upload-status"></span>
+                  </div>
+                </div>
+                <input type="hidden" id="about-img" name="about_img" value="./assets/images/my-photo2.png" />
               </div>
 
               <h3 class="subsection-title">شارەزاییەکان و ڕێژەی لەسەد (Skills & Percentages)</h3>
@@ -655,8 +694,17 @@
                     <input type="text" id="portfolio-cat-0" class="form-control" placeholder="کلاود" required />
                   </div>
                   <div class="form-group">
-                    <label for="portfolio-img-0">ڕێڕەوی وێنەی پڕۆژە</label>
-                    <input type="text" id="portfolio-img-0" class="form-control" placeholder="./assets/images/project1.svg" dir="ltr" required />
+                    <label for="portfolio-img-0">وێنەی پڕۆژە</label>
+                    <div class="project-uploader-compact">
+                      <div class="preview-container">
+                        <img id="portfolio-preview-0" class="image-preview-thumb" src="../assets/images/project1.svg" alt="Project 1" />
+                      </div>
+                      <button type="button" class="btn btn-upload" id="portfolio-file-btn-0">
+                        <span>📷 هەڵبژاردنی وێنە</span>
+                      </button>
+                      <input type="file" id="portfolio-file-input-0" accept="image/*" style="display: none;" />
+                    </div>
+                    <input type="hidden" id="portfolio-img-0" name="portfolio_img_0" value="./assets/images/project1.svg" />
                   </div>
                   <div class="form-group">
                     <label for="portfolio-desc-0">کورتە ڕوونکردنەوە</label>
@@ -676,8 +724,17 @@
                     <input type="text" id="portfolio-cat-1" class="form-control" placeholder="وێبسایت" required />
                   </div>
                   <div class="form-group">
-                    <label for="portfolio-img-1">ڕێڕەوی وێنەی پڕۆژە</label>
-                    <input type="text" id="portfolio-img-1" class="form-control" placeholder="./assets/images/project2.svg" dir="ltr" required />
+                    <label for="portfolio-img-1">وێنەی پڕۆژە</label>
+                    <div class="project-uploader-compact">
+                      <div class="preview-container">
+                        <img id="portfolio-preview-1" class="image-preview-thumb" src="../assets/images/project2.svg" alt="Project 2" />
+                      </div>
+                      <button type="button" class="btn btn-upload" id="portfolio-file-btn-1">
+                        <span>📷 هەڵبژاردنی وێنە</span>
+                      </button>
+                      <input type="file" id="portfolio-file-input-1" accept="image/*" style="display: none;" />
+                    </div>
+                    <input type="hidden" id="portfolio-img-1" name="portfolio_img_1" value="./assets/images/project2.svg" />
                   </div>
                   <div class="form-group">
                     <label for="portfolio-desc-1">کورتە ڕوونکردنەوە</label>
@@ -697,8 +754,17 @@
                     <input type="text" id="portfolio-cat-2" class="form-control" placeholder="ئەپڵیکەیشن" required />
                   </div>
                   <div class="form-group">
-                    <label for="portfolio-img-2">ڕێڕەوی وێنەی پڕۆژە</label>
-                    <input type="text" id="portfolio-img-2" class="form-control" placeholder="./assets/images/project3.svg" dir="ltr" required />
+                    <label for="portfolio-img-2">وێنەی پڕۆژە</label>
+                    <div class="project-uploader-compact">
+                      <div class="preview-container">
+                        <img id="portfolio-preview-2" class="image-preview-thumb" src="../assets/images/project3.svg" alt="Project 3" />
+                      </div>
+                      <button type="button" class="btn btn-upload" id="portfolio-file-btn-2">
+                        <span>📷 هەڵبژاردنی وێنە</span>
+                      </button>
+                      <input type="file" id="portfolio-file-input-2" accept="image/*" style="display: none;" />
+                    </div>
+                    <input type="hidden" id="portfolio-img-2" name="portfolio_img_2" value="./assets/images/project3.svg" />
                   </div>
                   <div class="form-group">
                     <label for="portfolio-desc-2">کورتە ڕوونکردنەوە</label>
@@ -718,8 +784,17 @@
                     <input type="text" id="portfolio-cat-3" class="form-control" placeholder="کلاود" required />
                   </div>
                   <div class="form-group">
-                    <label for="portfolio-img-3">ڕێڕەوی وێنەی پڕۆژە</label>
-                    <input type="text" id="portfolio-img-3" class="form-control" placeholder="./assets/images/project4.svg" dir="ltr" required />
+                    <label for="portfolio-img-3">وێنەی پڕۆژە</label>
+                    <div class="project-uploader-compact">
+                      <div class="preview-container">
+                        <img id="portfolio-preview-3" class="image-preview-thumb" src="../assets/images/project4.svg" alt="Project 4" />
+                      </div>
+                      <button type="button" class="btn btn-upload" id="portfolio-file-btn-3">
+                        <span>📷 هەڵبژاردنی وێنە</span>
+                      </button>
+                      <input type="file" id="portfolio-file-input-3" accept="image/*" style="display: none;" />
+                    </div>
+                    <input type="hidden" id="portfolio-img-3" name="portfolio_img_3" value="./assets/images/project4.svg" />
                   </div>
                   <div class="form-group">
                     <label for="portfolio-desc-3">کورتە ڕوونکردنەوە</label>
@@ -739,8 +814,17 @@
                     <input type="text" id="portfolio-cat-4" class="form-control" placeholder="وێبسایت" required />
                   </div>
                   <div class="form-group">
-                    <label for="portfolio-img-4">ڕێڕەوی وێنەی پڕۆژە</label>
-                    <input type="text" id="portfolio-img-4" class="form-control" placeholder="./assets/images/project5.svg" dir="ltr" required />
+                    <label for="portfolio-img-4">وێنەی پڕۆژە</label>
+                    <div class="project-uploader-compact">
+                      <div class="preview-container">
+                        <img id="portfolio-preview-4" class="image-preview-thumb" src="../assets/images/project5.svg" alt="Project 5" />
+                      </div>
+                      <button type="button" class="btn btn-upload" id="portfolio-file-btn-4">
+                        <span>📷 هەڵبژاردنی وێنە</span>
+                      </button>
+                      <input type="file" id="portfolio-file-input-4" accept="image/*" style="display: none;" />
+                    </div>
+                    <input type="hidden" id="portfolio-img-4" name="portfolio_img_4" value="./assets/images/project5.svg" />
                   </div>
                   <div class="form-group">
                     <label for="portfolio-desc-4">کورتە ڕوونکردنەوە</label>
@@ -760,8 +844,17 @@
                     <input type="text" id="portfolio-cat-5" class="form-control" placeholder="ئەپڵیکەیشن" required />
                   </div>
                   <div class="form-group">
-                    <label for="portfolio-img-5">ڕێڕەوی وێنەی پڕۆژە</label>
-                    <input type="text" id="portfolio-img-5" class="form-control" placeholder="./assets/images/project6.svg" dir="ltr" required />
+                    <label for="portfolio-img-5">وێنەی پڕۆژە</label>
+                    <div class="project-uploader-compact">
+                      <div class="preview-container">
+                        <img id="portfolio-preview-5" class="image-preview-thumb" src="../assets/images/project6.svg" alt="Project 6" />
+                      </div>
+                      <button type="button" class="btn btn-upload" id="portfolio-file-btn-5">
+                        <span>📷 هەڵبژاردنی وێنە</span>
+                      </button>
+                      <input type="file" id="portfolio-file-input-5" accept="image/*" style="display: none;" />
+                    </div>
+                    <input type="hidden" id="portfolio-img-5" name="portfolio_img_5" value="./assets/images/project6.svg" />
                   </div>
                   <div class="form-group">
                     <label for="portfolio-desc-5">کورتە ڕوونکردنەوە</label>
