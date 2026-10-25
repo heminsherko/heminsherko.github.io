@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ==============================================================================
  * Hemin Sherko - Systems Architect | Portfolio Application Scripts
  * Robust Production Version with Strict Null-Checks & Error Handling
@@ -811,10 +811,12 @@ function initializePortfolio() {
   if (typewriterTextElem) {
     const initTypewriter = () => {
       const textArray = [
-        "نەخشەسازی سیستەم",
-        "بەڕێوەبردنی سێرڤەر",
-        "پاراستنی داتا",
-        "دروستکردنی وێبسایت"
+        "دیزاین",
+        "دەروونناسی",
+        "پرۆگرامینگ",
+        "مۆشن گرافیک",
+        "توێژینەوە",
+        "دروستکردنی ناوەڕۆک"
       ];
 
       let arrayIndex = 0;
