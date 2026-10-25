@@ -1,0 +1,36 @@
+1:"$Sreact.fragment"
+2:"/_next/static/chunks/42onvq6nokjl2.js"
+3:I[39756,["$2"],"default"]
+4:I[37457,["$2"],"default"]
+8:"/_next/static/chunks/24at7km7rsh20.js"
+9:I[42618,["$2","$8"],"Providers"]
+11:"/_next/static/chunks/2vxnir89n7ojj.js"
+12:"/_next/static/chunks/2al-5-fetoswh.js"
+13:I[36548,["$2","$8","$11","$12"],"WorldPage"]
+14:I[97367,["$2"],"OutletBoundary"]
+15:"$Sreact.suspense"
+18:"ViewportBoundary"
+19:I[97367,["$2"],"$18"]
+1a:"MetadataBoundary"
+1b:I[97367,["$2"],"$1a"]
+1c:I[27201,["$2"],"IconMark"]
+:HL["/_next/static/chunks/0izgho0-oyv5z.css","style"]
+6:X
+d:X
+d:C
+10:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[["$","$L13",null,{"world":{"id":"design","slug":"design","icon":"🎨","label":{"ku":"دیزاین","en":"Design","ar":"التصميم"},"description":{"ku":"دیزاین و مۆشن گرافیک","en":"Design & Motion Graphics","ar":"التصميم والرسوم المتحركة"},"colors":{"bg":"var(--design-bg)","surface":"var(--design-surface)","primary":"var(--design-primary)","secondary":"var(--design-secondary)","accent":"var(--design-accent)","glow":"var(--design-glow)","text":"var(--design-text)","textMuted":"var(--design-text-muted)","gradientStart":"var(--design-gradient-start)","gradientEnd":"var(--design-gradient-end)"}},"locale":"en","messages":{"meta":{"title":"Hemin Sherko | Multiverse Portfolio","description":"Psychologist, Researcher, Designer & Programmer"},"loader":{"entering":"Entering the Multiverse...","loading":"Loading..."},"hub":{"welcome":"Welcome to My Multiverse","subtitle":"A unique world for each discipline","explore":"Explore","selectWorld":"Select a World"},"worlds":{"psychology":{"title":"Psychology","tagline":"Understanding humans and their emotions","enter":"Enter the World of Psychology"},"research":{"title":"Research","tagline":"Scientific discovery and analysis","enter":"Enter the World of Research"},"design":{"title":"Design","tagline":"Design & Motion Graphics","enter":"Enter the World of Design"},"programming":{"title":"Programming","tagline":"Building systems and applications","enter":"Enter the World of Programming"}},"nav":{"home":"Home","about":"About Me","projects":"Projects","contact":"Contact","backToHub":"Back to Hub"},"common":{"viewProject":"View Project","viewAll":"View All","soundOn":"Sound On","soundOff":"Sound Off","scrollDown":"Scroll Down"}}}],[["$","script","script-0",{"src":"/_next/static/chunks/2vxnir89n7ojj.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/2al-5-fetoswh.js","async":true}]],["$","$L14",null,{"children":["$","$15",null,{"name":"Next.MetadataOutlet","children":"$@16"}]}]]}],"p":"$@17","v":null,"s":"$6"}}]]
+e:[["children",{"s":{"n":"world","t":"d","k":"design","s":["design","programming","psychology","research"]},"h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}]}]]}],"p":"$@f","v":"$d","s":"$6"},"c":"$Q10"}]]
+b:[["children",{"s":"(worlds)","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}]}]]}],"p":"$@c","v":"$d","s":"$6"},"c":"$Qe"}]]
+7:[["children",{"s":{"n":"locale","t":"d","k":"en","s":[]},"h":96,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/0izgho0-oyv5z.css","precedence":"next"}],["$","script","script-0",{"src":"/_next/static/chunks/24at7km7rsh20.js","async":true}]],["$","html",null,{"lang":"en","dir":"ltr","className":"YwDgTW_variable JS9TqG_variable","suppressHydrationWarning":true,"children":["$","body",null,{"className":"min-h-dvh overflow-x-hidden bg-[var(--hub-bg)] text-[var(--hub-text)] antialiased","children":["$","$L9",null,{"children":["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}]}]}]}]}]]}],"p":"$@a","v":null,"s":"$6"},"c":"$Qb"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/42onvq6nokjl2.js","async":true}]],["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}],"notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]]}]]}],"p":"$@5","v":null,"s":"$6"},"c":"$Q7"},"h":{"r":["$","$1","h",{"children":[null,["$","$L19",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L1b",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$15",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Hemin Sherko | Multiverse Portfolio"}],["$","meta","1",{"name":"description","content":"Psychologist, Researcher, Designer & Programmer"}],["$","meta","2",{"property":"og:title","content":"Hemin Sherko | Multiverse Portfolio"}],["$","meta","3",{"property":"og:description","content":"Psychologist, Researcher, Designer & Programmer"}],["$","meta","4",{"property":"og:locale","content":"ku_IQ"}],["$","meta","5",{"property":"og:type","content":"website"}],["$","meta","6",{"name":"twitter:card","content":"summary"}],["$","meta","7",{"name":"twitter:title","content":"Hemin Sherko | Multiverse Portfolio"}],["$","meta","8",{"name":"twitter:description","content":"Psychologist, Researcher, Designer & Programmer"}],["$","link","9",{"rel":"icon","href":"/favicon.ico?favicon.117ezoe8m31dk.ico","sizes":"48x48","type":"image/x-icon"}],["$","$L1c","10",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@1d","v":null,"s":"$6"}},"a":"$@1e","u":"$@1f","b":"X8WgLB5CDpI5y5bsG5t9V"}
+16:null
+6:300
+1f:true
+6:C
+1e:0
+f:"$undefined"
+c:"$undefined"
+a:"$undefined"
+5:"$undefined"
+1d:"$undefined"
+17:"$undefined"
